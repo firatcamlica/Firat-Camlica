@@ -1,10 +1,14 @@
 {
-  "name": "espresso-video",
+  "name": "espresso-tiktok",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "studio": "remotion studio src/index.ts",
+    "tts:estimate": "python3 tools/tts.py --mode estimate",
+    "tts:edge": "python3 tools/tts.py --mode edge",
+    "render": "tools/render.sh",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +24,6 @@
     "react-dom": "^19.3.0",
     "remotion": "^4.0.533",
     "typescript": "^7.0.2"
-  }
+  },
+  "private": true
 }

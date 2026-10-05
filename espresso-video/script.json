@@ -43,7 +43,7 @@
       "year": 1948,
       "headline": [
         "Gaggia ile",
-        "crema doğdu"
+        "crema çağı"
       ],
       "highlight": "crema",
       "speech": "[Achille|Akille] [Gaggia|Gaçça] kaldıraçlı piston makinesini getirdi. Yüksek basınçla kahvenin üstünde [crema|krema] oluştu."
@@ -72,9 +72,10 @@
       "id": "compare",
       "kicker": "DEMLEME SÜRESİ",
       "headline": [
-        "8 kat daha hızlı"
+        "Fransız presi",
+        "mi espresso mu?"
       ],
-      "highlight": "8 kat",
+      "highlight": "espresso",
       "speech": "Fransız presi yaklaşık [4|dört] dakika. Espresso [30|otuz] saniye. Yani [8|sekiz] kat daha hızlı."
     },
     {
