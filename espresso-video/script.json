@@ -1,0 +1,91 @@
+{
+  "_comment": "Konuşma metni işaretlemesi: [ekran|okunuş] -> altyazıda 'ekran', seslendirmede 'okunuş' kullanılır. Düz kelimeler ikisinde de aynıdır.",
+  "voice": "tr-TR-AhmetNeural",
+  "rate": "+10%",
+  "scenes": [
+    {
+      "id": "hook",
+      "kicker": "ESPRESSO",
+      "headline": [
+        "LÜKS DEĞİL,",
+        "HIZ İÇİN"
+      ],
+      "highlight": "HIZ",
+      "speech": "Espresso lüks için değil, hız için icat edildi."
+    },
+    {
+      "id": "y1884",
+      "kicker": "TORİNO",
+      "year": 1884,
+      "headline": [
+        "Angelo Moriondo",
+        "buharlı toplu kahve",
+        "makinesi patenti"
+      ],
+      "highlight": "patenti",
+      "speech": "[Torino'da|Torinoda] [Angelo|Anjelo] Moriondo, buharlı toplu kahve makinesinin patentini aldı."
+    },
+    {
+      "id": "y1901",
+      "kicker": "MİLANO",
+      "year": 1901,
+      "year2": 1905,
+      "headline": [
+        "Bezzera geliştirdi,",
+        "Pavoni üretti"
+      ],
+      "highlight": "üretti",
+      "speech": "[Luigi|Luici] Bezzera makineyi geliştirdi. [Desiderio|Dezideryo] Pavoni ise ticari üretime başladı."
+    },
+    {
+      "id": "y1948",
+      "kicker": "KALDIRAÇLI PİSTON",
+      "year": 1948,
+      "headline": [
+        "Gaggia ile",
+        "crema doğdu"
+      ],
+      "highlight": "crema",
+      "speech": "[Achille|Akille] [Gaggia|Gaçça] kaldıraçlı piston makinesini getirdi. Yüksek basınçla kahvenin üstünde [crema|krema] oluştu."
+    },
+    {
+      "id": "y1961",
+      "kicker": "FAEMA E61",
+      "year": 1961,
+      "headline": [
+        "Elektrikli pompa,",
+        "sabit 9 bar"
+      ],
+      "highlight": "9 bar",
+      "speech": "Faema [E61|E altmış bir] ile elektrikli pompa, basıncı sabit [9|dokuz] bar yaptı."
+    },
+    {
+      "id": "recipe",
+      "kicker": "BUGÜNÜN REÇETESİ",
+      "headline": [
+        "Oran 1:2"
+      ],
+      "highlight": "1:2",
+      "speech": "Bugünün reçetesi: [18|on sekiz] gram kahve, [36|otuz altı] gram espresso, [30|otuz] saniye, [93|doksan üç] derece."
+    },
+    {
+      "id": "compare",
+      "kicker": "DEMLEME SÜRESİ",
+      "headline": [
+        "8 kat daha hızlı"
+      ],
+      "highlight": "8 kat",
+      "speech": "Fransız presi yaklaşık [4|dört] dakika. Espresso [30|otuz] saniye. Yani [8|sekiz] kat daha hızlı."
+    },
+    {
+      "id": "outro",
+      "kicker": "ESPRESSO",
+      "headline": [
+        "Bir hız",
+        "hikâyesi"
+      ],
+      "highlight": "hız",
+      "speech": "Espresso, aslında bir hız hikâyesi. Daha fazlası için takip et."
+    }
+  ]
+}
