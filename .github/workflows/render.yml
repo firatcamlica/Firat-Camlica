@@ -1,0 +1,54 @@
+name: Render Espresso Video
+
+on:
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodu Çek
+        uses: actions/checkout@v4
+
+      - name: Node.js Kur
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-dependency-path: espresso-video/package-lock.json
+
+      - name: Python Kur
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Sistem Bağımlılıkları ve FFmpeg Kur
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg libasound2 libatk-bridge2.0-0 libgtk-3-0 libnss3
+
+      - name: Python Paketlerini Kur
+        run: |
+          pip install edge-tts
+
+      - name: Node Paketlerini Kur
+        working-directory: espresso-video
+        run: npm ci
+
+      - name: Ses Dosyalarını Üret (Edge-TTS)
+        working-directory: espresso-video
+        run: python tools/tts.py --mode edge
+
+      - name: Remotion ile Videoyu Render Et
+        working-directory: espresso-video
+        run: npm run build
+
+      - name: Çıktıları Yükle (Download için)
+        uses: actions/upload-artifact@v4
+        with:
+          name: espresso-tiktok-final
+          path: |
+            espresso-video/teslim/
+            espresso-video/*.mp4
+            espresso-video/*.srt
