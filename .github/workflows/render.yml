@@ -41,13 +41,7 @@ jobs:
       - name: Remotion ile Videoyu Render Et
         working-directory: espresso-video
         run: |
-          if [ -f "tools/render.py" ]; then
-            python tools/render.py
-          elif [ -f "tools/teslim.py" ]; then
-            python tools/teslim.py
-          else
-            npx remotion render src/index.ts Main teslim/espresso_tiktok.mp4
-          fi
+          npx remotion render src/index.ts Espresso teslim/espresso_tiktok.mp4
 
       - name: Çıktıları Yükle (Download için)
         uses: actions/upload-artifact@v4
