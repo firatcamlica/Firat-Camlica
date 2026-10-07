@@ -7,8 +7,12 @@ ROOT = Path(__file__).resolve().parent.parent
 DEST = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / "teslim"
 DEST.mkdir(parents=True, exist_ok=True)
 
-script = json.loads((ROOT / "script.json").read_text(encoding="utf-8"))
-tm = json.loads((ROOT / "src" / "timings.json").read_text(encoding="utf-8"))
+SCRIPT = sys.argv[2] if len(sys.argv) > 2 else "script.json"
+TIMINGS = sys.argv[3] if len(sys.argv) > 3 else "src/timings.json"
+SRT_NAME = sys.argv[4] if len(sys.argv) > 4 else "espresso_tiktok_altyazi.srt"
+script = json.loads((ROOT / SCRIPT).read_text(encoding="utf-8"))
+tm = json.loads((ROOT / TIMINGS).read_text(encoding="utf-8"))
+PART2 = SCRIPT != "script.json"
 
 VISUAL = {
     "hook": "Cam fincan hızla dolar, crema katmanı ve buhar belirir; şimşek simgesi.",
@@ -20,6 +24,15 @@ VISUAL = {
     "compare": "Yatay çubuk grafik: Fransız presi 240 sn, espresso 30 sn; sonda '8 kat daha hızlı'.",
     "outro": "Dolu fincan, buhar, 'Takip et' düğmesi.",
 }
+if PART2:
+    VISUAL = {
+        "hook": "Parlayan kehribar damla düşer; çarpınca halkalar yayılır, nokta ızgarası radyal olarak yanar, dönen HUD halkası ve '2.0', veri çipleri yayla patlar.",
+        "ey": "Cam panelde 220 partikül; lazer soldan sağa tarar, tam %20'si (44 adet) kehribar parlar. EY sayacı %20'ye akar; %18-22 ideal aralık çubuğunda imleç.",
+        "formula": "Kelimelerle senkron cam kartlar: TDS %10 × 36 g ÷ 18 g = %20 (yeşil parlayan sonuç kartı).",
+        "pressure": "Neon grafik: önce kesikli 'klasik pompa · sabit 9 bar', sonra parlayan uçlu örnek profil eğrisi (ıslatma ~2 bar → zirve 9 bar → ~6 bara düşüş), canlı bar/sn göstergesi.",
+        "wdt": "Kesitte dağınık telve; su kanala yığılır ('kanal'). WDT iğneleri geçer, partiküller yayla ızgaraya oturur; eşit akış çizgileri.",
+        "outro": "Veri çipleri merkeze çekilir (implosion), vektör fincan yayla girer; buhar yerine yükselen sayılar; '+ Takip et'.",
+    }
 
 
 def ts(sec):
@@ -42,11 +55,11 @@ for sc in tm["scenes"]:
         text = " ".join(ws[i]["t"] for i in ch["w"])
         lines += [str(n), f"{ts(s)} --> {ts(e)}", text, ""]
         n += 1
-(DEST / "espresso_tiktok_altyazi.srt").write_text("\n".join(lines), encoding="utf-8")
+(DEST / SRT_NAME).write_text("\n".join(lines), encoding="utf-8")
 
 # ---- senaryo.md
 est = tm["source"] == "estimate"
-md = ["# Espresso'nun Tarihi — TikTok Senaryosu", ""]
+md = ["# Espresso Part 2 — Modern Çağ (Senaryo)" if PART2 else "# Espresso'nun Tarihi — TikTok Senaryosu", ""]
 md.append(f"Toplam süre: **{tm['total']:.1f} sn** · 1080×1920 · 30 fps · "
           f"seslendirme: {'tahmini zamanlama (TTS henüz çalıştırılmadı)' if est else tm['voice'] + ', hız ' + tm['rate']}")
 md += ["", "Konuşma metninde `[ekran|okunuş]` gösterimi: altyazıda ilk, seslendirmede ikinci biçim kullanılır "
@@ -65,7 +78,7 @@ for i, (meta, sc) in enumerate(zip(script["scenes"], tm["scenes"]), 1):
     md.append(f"- **Ekran metni:** {meta['kicker']} · {screen}")
     md.append(f"- **Görsel:** {VISUAL[meta['id']]}")
     md.append("")
-md += ["## Bilerek videoya konmayanlar", "",
+md += [] if PART2 else ["## Bilerek videoya konmayanlar", "",
        "- *Bezzera'nın makineyi fabrika işçileri için hızlandırmak amacıyla icat ettiği* anlatısı: güvenilir kaynakta doğrulanamadı.",
        "- *Moriondo'nun makinesi ilk espresso makinesidir* iddiası: tartışmalı (toplu demleyiciydi); bu yüzden yalnızca 'toplu kahve makinesi patenti' denir.",
        "- Pavoni'nin Bezzera patentini **satın aldığı yıl**: kaynaklara göre 1902/1903/1905 arasında değişiyor; yalnızca '1905'te ticari satış' kullanıldı.",

@@ -1,0 +1,80 @@
+{
+  "_comment": "Part 2 — modern çağ. [ekran|okunuş] işaretlemesi: altyazıda ilk, seslendirmede ikinci biçim.",
+  "voice": "tr-TR-AhmetNeural",
+  "rate": "+8%",
+  "min_scene": 4.0,
+  "max_scene": 10.0,
+  "scenes": [
+    {
+      "id": "hook",
+      "kicker": "PART 2 · MODERN ÇAĞ",
+      "headline": [
+        "İtalyanlar icat etti,",
+        "bilim yeniden yazdı"
+      ],
+      "highlight": "bilim",
+      "transition": "zoom",
+      "speech": "İtalyanlar espressoyu icat etti. Bilim onu yeniden yazdı.",
+      "min": 4.5
+    },
+    {
+      "id": "ey",
+      "kicker": "01 · ÇIKARIM ORANI",
+      "headline": [
+        "Kahvenin ~%20'si",
+        "suda çözünür"
+      ],
+      "highlight": "~%20'si",
+      "transition": "whip",
+      "min": 5.2,
+      "speech": "Göz kararı bitti. Hedef, kahvenin yaklaşık [%20'sini|yüzde yirmisini] suda çözmek."
+    },
+    {
+      "id": "formula",
+      "kicker": "02 · REFRAKTOMETRE",
+      "headline": [
+        "Tahmin değil,",
+        "ölçüm"
+      ],
+      "highlight": "ölçüm",
+      "transition": "zoom",
+      "speech": "Refraktometre ölçer: [%10|yüzde on] [TDS|te de se], [36|otuz altı] gram içecek, [18|on sekiz] gram kahve. Sonuç: [%20.|yüzde yirmi.]",
+      "min": 8.0
+    },
+    {
+      "id": "pressure",
+      "kicker": "03 · BASINÇ PROFİLİ",
+      "headline": [
+        "9 bar bir çizgi,",
+        "profil bir eğri"
+      ],
+      "highlight": "eğri",
+      "transition": "whip",
+      "speech": "Pompalar yıllarca [9|dokuz] barda sabit çalıştı. Artık basınca profil çiziyoruz: yavaş ıslatma, zirve, sonra yumuşak düşüş.",
+      "min": 9.0
+    },
+    {
+      "id": "wdt",
+      "kicker": "04 · WDT",
+      "headline": [
+        "Su, en kolay",
+        "yolu seçer"
+      ],
+      "highlight": "kolay",
+      "transition": "zoom",
+      "speech": "Su hep en kolay yolu seçer; buna kanallanma denir. Çözüm: ince iğnelerle telveyi karıştırmak.",
+      "min": 8.0
+    },
+    {
+      "id": "outro",
+      "kicker": "ESPRESSO 2.0",
+      "headline": [
+        "Şans değil,",
+        "bilim"
+      ],
+      "highlight": "bilim",
+      "speech": "Mükemmel espresso şans değil, ölçülebilir bir bilim. Takip et.",
+      "min": 6.0
+    }
+  ]
+}

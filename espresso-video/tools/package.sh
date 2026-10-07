@@ -9,7 +9,7 @@ if [ -f public/voice/voice.mp3 ] && grep -q '"source": "edge"' src/timings.json;
 else
   AUDIO=(-f lavfi -i anullsrc=r=44100:cl=mono); AMAP=(-map 0:v -map 1:a)
 fi
-ffmpeg -y -loglevel error -i out/video_raw.mp4 "${AUDIO[@]}" "${AMAP[@]}" -shortest \
+ffmpeg -y -loglevel error -i "${RAW:-out/video_raw.mp4}" "${AUDIO[@]}" "${AMAP[@]}" -shortest \
   -vf "scale=in_range=pc:out_range=tv:out_color_matrix=bt709,format=yuv420p" \
   -c:v libx264 -preset slow -crf 17 -colorspace bt709 -color_primaries bt709 -color_trc bt709 -color_range tv \
   -c:a aac -b:a 160k -ar 44100 -movflags +faststart "$OUT"

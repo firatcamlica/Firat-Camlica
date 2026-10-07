@@ -140,12 +140,16 @@ def main():
     ap.add_argument("--mode", choices=["estimate", "edge"], default="estimate")
     ap.add_argument("--voice")
     ap.add_argument("--rate")
+    ap.add_argument("--script", default="script.json")
+    ap.add_argument("--timings", default="src/timings.json")
+    ap.add_argument("--voice-dir", default="public/voice")
     a = ap.parse_args()
 
-    script = json.loads((ROOT / "script.json").read_text(encoding="utf-8"))
+    script = json.loads((ROOT / a.script).read_text(encoding="utf-8"))
+    lo, hi = script.get("min_scene", MIN_SCENE), script.get("max_scene", MAX_SCENE)
     voice = a.voice or script["voice"]
     rate = a.rate or script["rate"]
-    voice_dir = ROOT / "public" / "voice"
+    voice_dir = ROOT / a.voice_dir
     voice_dir.mkdir(parents=True, exist_ok=True)
 
     scenes, t = [], 0.0
@@ -163,16 +167,16 @@ def main():
         for w in words:
             w["s"] = round(w["s"] + LEAD, 3)
             w["e"] = round(w["e"] + LEAD, 3)
-        dur = min(MAX_SCENE, max(MIN_SCENE, LEAD + vo_dur + TAIL))
-        if LEAD + vo_dur + 0.25 > MAX_SCENE:
-            print(f"UYARI: '{sc['id']}' sahnesi 8 sn'yi aşıyor ({LEAD + vo_dur:.2f} sn) - metni kısaltın.", file=sys.stderr)
+        dur = min(hi, max(sc.get("min", lo), LEAD + vo_dur + TAIL))
+        if LEAD + vo_dur + 0.25 > hi:
+            print(f"UYARI: '{sc['id']}' sahnesi üst sınırı aşıyor ({LEAD + vo_dur:.2f} sn) - metni kısaltın.", file=sys.stderr)
         scenes.append({"id": sc["id"], "start": round(t, 3), "dur": round(dur, 3),
                        "words": words, "chunks": chunk(words)})
         t += dur
 
     out = {"fps": FPS, "source": a.mode, "voice": voice if a.mode == "edge" else None,
            "rate": rate, "total": round(t, 3), "scenes": scenes}
-    (ROOT / "src" / "timings.json").write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
+    (ROOT / a.timings).write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
     if a.mode == "edge":
         build_voice_track(scenes, voice_dir, voice_dir / "voice.mp3")
     status = "OK" if 40 <= t <= 50 else "UYARI: süre 40-50 sn dışında"

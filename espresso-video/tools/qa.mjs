@@ -1,4 +1,4 @@
-// Kalite kontrol kareleri: her sahneden birkaç kare. Kullanım: node tools/qa.mjs [Espresso|EspressoDebug] [cikti_klasoru]
+// Kalite kontrol kareleri. Kullanım: node tools/qa.mjs <kompozisyon> <çıktı_klasörü> [timings.json]
 import { bundle } from "@remotion/bundler";
 import { renderStill, selectComposition } from "@remotion/renderer";
 import { readFileSync, mkdirSync } from "node:fs";
@@ -8,7 +8,7 @@ const id = process.argv[2] ?? "EspressoDebug";
 const outDir = process.argv[3] ?? "out/qa";
 mkdirSync(outDir, { recursive: true });
 const browserExecutable = process.env.BROWSER ?? "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell";
-const timings = JSON.parse(readFileSync("src/timings.json", "utf8"));
+const timings = JSON.parse(readFileSync(process.argv[4] ?? "src/timings.json", "utf8"));
 const serveUrl = await bundle({ entryPoint: path.resolve("src/index.ts") });
 const comp = await selectComposition({ serveUrl, id, browserExecutable });
 for (const sc of timings.scenes) {

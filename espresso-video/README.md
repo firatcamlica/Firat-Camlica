@@ -32,3 +32,22 @@ Süre 40–50 sn dışına çıkarsa `tts.py` uyarır; `script.json` içindeki `
 ## Notlar
 - Remotion, şirketler için lisans koşulları içerir (bireyler/küçük ekipler ücretsiz): https://www.remotion.dev/license
 - Güvenli alan: üst 150, sağ 160, alt 320 px dışına metin konmadı (otomatik piksel taramasıyla doğrulandı).
+
+---
+
+# Part 2 — Modern çağ (EY, basınç profili, WDT)
+
+"Stripe/Vercel" estetiği: siyah zemin üstünde hareketli kehribar/pas mesh gradient'ler, nokta ızgarası,
+cam paneller (`backdrop-filter: blur(24px)`), Inter + Space Grotesk. Tüm girişler yay fiziğiyle
+(mass 0.5, damping 12, stiffness 120); sahne geçişleri zoom-in ve whip-pan.
+
+```bash
+python3 tools/tts.py --mode edge --script script2.json --timings src/p2/timings.json --voice-dir public/voice2
+COMP=Part2 RAW=out/p2_raw.mp4 tools/render.sh
+RAW=out/p2_raw.mp4 tools/package.sh teslim/part2/espresso_part2.mp4
+python3 tools/build_assets.py teslim/part2 script2.json src/p2/timings.json espresso_part2_altyazi.srt
+node tools/cover.mjs Cover2 teslim/part2/kapak_part2.png
+node tools/qa.mjs Part2Debug out/qa2 src/p2/timings.json   # güvenli alan işaretli QA kareleri
+```
+Not: `package.sh` sesi `public/voice/voice.mp3`ten alır; Part 2 için gerçek sesle paketlerken
+`public/voice2/voice.mp3` yolunu kullanacak şekilde betikteki ses yolunu değiştirin.
