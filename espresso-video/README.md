@@ -7,6 +7,11 @@
 adresine ağ erişimi olmadığı için üretilemedi. Altyazı zamanlaması şimdilik **tahminîdir**.
 Gerçek sesle bitirmek için aşağıdaki "Gerçek sesle bitirme" adımları yeterlidir.
 
+## Gerçek sesle bitirme — GitHub Actions (önerilen)
+GitHub → Actions → **Render Espresso Video** → *Run workflow* (dal: bu dal, ses: Ahmet/Emel).
+İş bitince **espresso-tiktok-final** artifact'ini indirin: iki bölümün sesli MP4'leri, gerçek kelime zamanlı
+SRT'ler, senaryolar, kapaklar, ayrı seslendirme katmanları ve `ses_ornekleri/` (Ahmet vs Emel).
+
 ## Gerçek sesle bitirme (edge-tts erişimi olan bir makinede)
 ```bash
 cd espresso-video

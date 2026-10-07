@@ -2,10 +2,22 @@ name: Render Espresso Video
 
 on:
   workflow_dispatch:
+    inputs:
+      voice:
+        description: "Seslendirme sesi"
+        type: choice
+        options:
+          - tr-TR-AhmetNeural
+          - tr-TR-EmelNeural
+        default: tr-TR-AhmetNeural
 
 jobs:
   render:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: espresso-video
 
     steps:
       - name: Kodu Çek
@@ -22,26 +34,50 @@ jobs:
           python-version: '3.11'
 
       - name: Sistem Bağımlılıkları ve FFmpeg Kur
+        working-directory: .
         run: |
           sudo apt-get update --fix-missing
           sudo apt-get install -y --no-install-recommends ffmpeg libasound2t64 libatk-bridge2.0-0 libgtk-3-0 libnss3 || sudo apt-get install -y ffmpeg libasound2 libatk-bridge2.0-0 libgtk-3-0 libnss3
 
       - name: Python Paketlerini Kur
-        run: |
-          pip install edge-tts
+        run: pip install edge-tts
 
       - name: Node Paketlerini Kur
-        working-directory: espresso-video
         run: npm ci
 
-      - name: Ses Dosyalarını Üret (Edge-TTS)
-        working-directory: espresso-video
-        run: python tools/tts.py --mode edge
+      - name: Ses Örnekleri (Ahmet / Emel karşılaştırma)
+        run: python tools/voice_samples.py teslim/ses_ornekleri
 
-      - name: Remotion ile Videoyu Render Et
-        working-directory: espresso-video
+      - name: Seslendirme + Kelime Zamanlaması (Part 1 ve Part 2)
         run: |
-          npx remotion render src/index.ts Espresso teslim/espresso_tiktok.mp4
+          python tools/tts.py --mode edge --voice "${{ inputs.voice }}"
+          python tools/tts.py --mode edge --voice "${{ inputs.voice }}" --script script2.json --timings src/p2/timings.json --voice-dir public/voice2
+
+      - name: Render (Part 1)
+        run: COMP=Espresso RAW=out/p1_raw.mp4 CONCURRENCY=2 tools/render.sh
+
+      - name: Render (Part 2)
+        run: COMP=Part2 RAW=out/p2_raw.mp4 CONCURRENCY=2 tools/render.sh
+
+      - name: Paketle (H.264 yuv420p/bt709 + AAC ses)
+        run: |
+          RAW=out/p1_raw.mp4 tools/package.sh teslim/espresso_tiktok.mp4
+          RAW=out/p2_raw.mp4 VOICE=public/voice2/voice.mp3 TIMINGS=src/p2/timings.json tools/package.sh teslim/part2/espresso_part2.mp4
+          cp public/voice/voice.mp3 teslim/seslendirme_part1.mp3
+          cp public/voice2/voice.mp3 teslim/part2/seslendirme_part2.mp3
+
+      - name: Altyazı (gerçek kelime zamanlarıyla) + Senaryo + Kapaklar
+        run: |
+          python tools/build_assets.py teslim
+          python tools/build_assets.py teslim/part2 script2.json src/p2/timings.json espresso_part2_altyazi.srt
+          node tools/cover.mjs Cover teslim/kapak.png
+          node tools/cover.mjs Cover2 teslim/part2/kapak_part2.png
+
+      - name: Teknik Kontrol
+        run: |
+          for f in teslim/espresso_tiktok.mp4 teslim/part2/espresso_part2.mp4; do
+            echo "== $f"; ffprobe -v error -show_entries stream=codec_name,width,height,r_frame_rate,pix_fmt -show_entries format=duration,size -of default=nw=1 "$f"
+          done
 
       - name: Çıktıları Yükle (Download için)
         uses: actions/upload-artifact@v4
@@ -49,5 +85,3 @@ jobs:
           name: espresso-tiktok-final
           path: |
             espresso-video/teslim/
-            espresso-video/*.mp4
-            espresso-video/*.srt

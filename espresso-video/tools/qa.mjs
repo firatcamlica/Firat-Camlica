@@ -3,11 +3,13 @@ import { bundle } from "@remotion/bundler";
 import { renderStill, selectComposition } from "@remotion/renderer";
 import { readFileSync, mkdirSync } from "node:fs";
 import path from "node:path";
+import { existsSync } from "node:fs";
 
 const id = process.argv[2] ?? "EspressoDebug";
 const outDir = process.argv[3] ?? "out/qa";
 mkdirSync(outDir, { recursive: true });
-const browserExecutable = process.env.BROWSER ?? "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell";
+const DEFAULT_BROWSER = "/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell";
+const browserExecutable = process.env.BROWSER || (existsSync(DEFAULT_BROWSER) ? DEFAULT_BROWSER : undefined); // yoksa Remotion indirir
 const timings = JSON.parse(readFileSync(process.argv[4] ?? "src/timings.json", "utf8"));
 const serveUrl = await bundle({ entryPoint: path.resolve("src/index.ts") });
 const comp = await selectComposition({ serveUrl, id, browserExecutable });
