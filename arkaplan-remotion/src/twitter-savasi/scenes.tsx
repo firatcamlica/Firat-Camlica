@@ -140,8 +140,10 @@ export const S0: React.FC = () => {
 export const S1: React.FC = () => {
   const f = useCurrentFrame();
   const c = sceneClock('S1');
-  const card = cue('S1', 'card', true);
   const reply = cue('S1', 'reply', true);
+  const cardSlot = slot(TEXT.s1.tweet);
+  // Ekran görüntüsü en fazla ~3 sn ekranda kalır; öncesinde sahne etiketi büyük gösterilir.
+  const card = hasShot(cardSlot) ? Math.max(cue('S1', 'card', true), reply - 96) : cue('S1', 'card', true);
   const replySlot = slot(TEXT.s1.reply);
   const replyShot = hasShot(replySlot);
   // Ekran görüntüsü varsa 3 sn ekranda kalır, sonra duvar üzerindeki metne geçilir.
@@ -150,9 +152,16 @@ export const S1: React.FC = () => {
     <AbsoluteFill>
       <WarMap cam={{lon: 35, lat: 39, scale: 1500}} highlight={['tr']} dim={interpolate(f, [reply - 6, reply], [0.55, 0.25], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'})} />
       <TopTag tag={TEXT.s1.tag} appear={fade(f, 0, c(0.5))} />
-      {f < reply ? (
+      {f < card ? (
         <Center>
-          <TweetCard slot={slot(TEXT.s1.tweet)} t={f - card} dir={1} exitAt={reply - card - 8} />
+          <div style={{font: `800 120px/1 ${FONTS.sans}`, color: COLORS.cream, letterSpacing: '-0.02em', opacity: fade(f, 2, 10) * fadeOut(f, card - 6, card)}}>İlk ateş</div>
+          <Mono size={36} color={RED} style={{opacity: fade(f, 6, 14) * fadeOut(f, card - 6, card)}}>
+            ÇİNCE BİR PAYLAŞIM · 19 EKİM
+          </Mono>
+        </Center>
+      ) : f < reply ? (
+        <Center>
+          <TweetCard slot={cardSlot} t={f - card} dir={1} exitAt={reply - card - 8} maxShotH={900} />
         </Center>
       ) : (
         <>

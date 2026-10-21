@@ -76,11 +76,11 @@ export type TweetSlot = {
 // alıntılanan Çince paylaşım (Çin tarafı) ve üstteki Türkçe cevap (Türk tarafı).
 // Diğer ekran görüntüleri kullanılmadı: etnik karikatür, hakaret içeren metin, gerçek kişinin yüzü
 // ya da bu olayla ilgisiz içerik (ayrıntı: teslim raporu).
-const SHOT_SED = 'tw_sed_patrick.png';
-const SHOT_SED_ASPECT = 1034 / 596;
+const SHOT_SED = 'tw_sed_patrick.jpg';
+const SHOT_SED_ASPECT = 1062 / 596;
 const SHOT_SED_BLUR: Rect[] = [
-  {x: 0, y: 0, w: 0.62, h: 0.09}, // cevap verenin profil fotoğrafı, adı, kullanıcı adı
-  {x: 0.01, y: 0.452, w: 0.64, h: 0.042}, // alıntılanan hesabın profil fotoğrafı, adı, kullanıcı adı
+  {x: 0, y: 0, w: 0.47, h: 0.0603}, // cevap verenin profil fotoğrafı, adı, kullanıcı adı
+  {x: 0.017, y: 0.452, w: 0.369, h: 0.032}, // alıntılanan hesabın profil fotoğrafı, adı, kullanıcı adı
 ];
 
 export const TWEETS: TweetSlot[] = [
@@ -89,7 +89,7 @@ export const TWEETS: TweetSlot[] = [
     side: 'cn',
     file: SHOT_SED,
     aspect: SHOT_SED_ASPECT,
-    crop: {y0: 0.448, y1: 0.945},
+    crop: {y0: 0.4463, y1: 0.9228},
     blur: SHOT_SED_BLUR,
     label: "X'te dolaşan espri (özet)",
     summary: 'Çince bir paylaşım, Türk bayrağının yanına paraşütle inen bir çizgi film karakteri koydu.',
@@ -100,7 +100,7 @@ export const TWEETS: TweetSlot[] = [
     side: 'tr',
     file: SHOT_SED,
     aspect: SHOT_SED_ASPECT,
-    crop: {y0: 0, y1: 0.448},
+    crop: {y0: 0, y1: 0.4426},
     blur: SHOT_SED_BLUR,
     label: "X'te dolaşan espri (özet)",
     summary: 'Bu duvarı kimden korunmak için ördünüz?',
