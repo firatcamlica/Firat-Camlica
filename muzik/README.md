@@ -14,16 +14,24 @@ BASLA=10 muzik/muzik_ekle.sh video.mp4                   # müziğe 10. saniyede
 MUZIK=muzik/baska.m4a muzik/muzik_ekle.sh video.mp4      # başka parça
 ```
 
-## Seviyeler (ölçülmüş)
+## Seviyeler (Azerbaycan başörtüsü videosunda ölçüldü)
 
-| Durum | Ses | Müzik | Fark |
-|---|---|---|---|
-| Videoda seslendirme var, konuşma arası | -16 LUFS | ≈ -33 dB RMS | müzik ~15 dB altta |
-| Konuşma sırasında (ducking) | -16 LUFS | ≈ -41 dB RMS | ~8 dB daha kısılır |
-| Video sessiz (boş ses kanalı dahil) | — | ≈ -20 LUFS | tek ses müzik |
+| | Seviye |
+|---|---|
+| Konuşma | -16 LUFS (videodaki ses buna normalize edilir; ham hali -23,3 idi) |
+| Müzik, konuşma sırasında | ≈ -37,5 LUFS → konuşmanın **~20 dB altında** |
+| Müzik, cümle aralarında | ≈ -35,4 LUFS (yalnızca ~2 dB açılır, pompalama yok) |
+| Video sessizse | ≈ -24 LUFS, tek ses müzik |
+| Toplam çıkış | ≈ -15 LUFS (Reels için uygun) |
+
+Müzik konuşmanın arkasında kalsın diye: 2 kHz çevresi 5 dB oyulur (konuşmanın anlaşılırlık bandı),
+konuşmada yumuşak ducking (oran 2, attack 150 ms, release 1,5 sn). Müzik hâlâ yüksek gelirse `SEVIYE=-18`,
+duyulmazsa `SEVIYE=-12`.
 
 Videodaki ses -50 LUFS'tan kısıksa sessiz sayılır (Remotion'un sessiz taslakları boş ses kanalı içerir).
-Giriş 1,5 sn fade-in, son 2,5 sn fade-out. Video 60,8 sn'den uzunsa parça başa sarar.
+Giriş 1,5 sn fade-in, son 2,5 sn fade-out. Parçanın ilk ~8 saniyesi kendiliğinden yavaş açılır;
+müziğin hemen dolu girmesi için `BASLA=8`. Video 60,8 sn'den uzunsa parça 11. saniyesinden (sessiz giriş atlanarak)
+3 sn çapraz geçişle devam eder.
 
 ## Remotion içinde kullanmak
 
@@ -39,7 +47,7 @@ export const FonMuzik: React.FC = () => {
       src={staticFile('muzik/demirci_sk_yatak.m4a')}
       loop
       volume={(f) =>
-        0.2 * // ≈ -14 dB; seslendirme yoksa 0.6
+        0.18 * // ≈ -15 dB; seslendirme yoksa 0.4
         interpolate(f, [0, 1.5 * fps, durationInFrames - 2.5 * fps, durationInFrames], [0, 1, 1, 0], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
