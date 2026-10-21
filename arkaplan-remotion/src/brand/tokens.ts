@@ -1,27 +1,28 @@
-// arka plan marka renkleri (videodaki karelerden örneklendi)
-export const C = {
-  cream: '#F1EDE5',
-  paper: '#FBFAF7',
-  ink: '#161616',
-  dark: '#161616',
-  blue: '#264CCF',
-  blueDeep: '#14206B',
+// arka plan marka tokenları. Mac'teki projeden (src/brand/tokens.ts) karelerle eşleştirilerek yeniden kuruldu.
+export const COLORS = {
+  cream: '#F2EEE6',
+  black: '#161616',
+  blue: '#2348D6',
   red: '#E1000F',
-  gray: '#8F8A83',
-  line: '#D8D2C6',
+  gray: '#A5A29D',
   white: '#FFFFFF',
+  navy: '#151D38',
 };
 
-export const W = 1080;
-export const H = 1350;
-// Instagram profil ızgarası 4:5 kareyi 3:4'e kırpar: 1350 * 3/4 = 1012.5 px genişlik, iki yandan ~34 px gider.
-export const GRID_CROP = Math.ceil((W - (H * 3) / 4) / 2);
-export const PAD = 76;
+export const ACCENT = COLORS.red;
 
-export const MIN_TITLE = 64;
-export const MIN_BODY = 36;
+export type ThemeName = 'light' | 'dark';
+export type Theme = {name: ThemeName; bg: string; fg: string; fgDim: string};
 
-export const FONT = {
-  display: "'Bricolage Grotesque Variable', sans-serif",
-  mono: "'JetBrains Mono', monospace",
+export const THEMES: Record<ThemeName, Theme> = {
+  light: {name: 'light', bg: COLORS.cream, fg: COLORS.black, fgDim: 'rgba(22,22,22,0.55)'},
+  dark: {name: 'dark', bg: COLORS.black, fg: COLORS.cream, fgDim: 'rgba(242,238,230,0.7)'},
 };
+
+export const BRAND = {
+  handle: '@arkaplan',
+  watermark: {size: 58, opacity: 0.9},
+};
+
+/** Başlık en az 64 px, gövde en az 36 px (carousel kuralı) */
+export const MIN = {title: 64, body: 36};

@@ -12,14 +12,14 @@ const name = process.argv[2] ?? 'fransa';
 const qa = process.argv.includes('--qa');
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 const outDir = path.join(root, 'out/carousel', name);
-const SLIDE_FRAMES = 45;
+const SLIDE_FRAMES = 400; // src/brand/Carousel.tsx: slideFrames
 
 const browser = process.env.BROWSER ?? '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
 const browserExecutable = fs.existsSync(browser) ? browser : null;
 
 fs.mkdirSync(outDir, {recursive: true});
 if (!qa) {
-  const old = fs.readdirSync(outDir).filter((f) => /^\d\d\.png$/.test(f) || f === 'onizleme.png');
+  const old = fs.readdirSync(outDir).filter((f) => /^\d\d\.png$/.test(f) || f === 'onizleme.png' || f === 'izgara_onizleme.png');
   if (old.length) {
     const stamp = new Date().toISOString().slice(0, 16).replace(/[:T]/g, '-');
     const dest = path.join(outDir, '_eski', stamp);

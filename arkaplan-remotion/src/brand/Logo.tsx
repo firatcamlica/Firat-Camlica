@@ -1,14 +1,11 @@
 import React from 'react';
-import {C} from './tokens';
+import {COLORS} from './tokens';
 
-// arka plan simgesi: koyu oynat kutusu, arkasında mavi kare
-export const LogoMark: React.FC<{size?: number; style?: React.CSSProperties}> = ({size = 64, style}) => {
-  const s = size;
-  return (
-    <svg width={s * 1.14} height={s * 1.14} viewBox="0 0 114 114" style={style}>
-      <rect x="34" y="0" width="80" height="80" rx="14" fill={C.blue} />
-      <rect x="0" y="30" width="84" height="84" rx="16" fill={C.ink} stroke="rgba(255,255,255,0.18)" strokeWidth="2" />
-      <path d="M32 52 L32 92 L64 72 Z" fill={C.cream} />
-    </svg>
-  );
-};
+// Logo: koyu oynat karesi, arkasında sağ üstte mavi kare
+export const Logo: React.FC<{size: number; onDark?: boolean}> = ({size}) => (
+  <svg width={size} height={size} viewBox="0 0 64 64">
+    <rect x="22" y="4" width="38" height="38" rx="7" fill={COLORS.blue} />
+    <rect x="4" y="18" width="42" height="42" rx="8" fill="#3A3A3A" />
+    <path d="M19 30 L19 48 L34 39 Z" fill={COLORS.white} />
+  </svg>
+);

@@ -1,18 +1,32 @@
-# arka plan · Remotion carousel
+# arka plan · Fransa carousel (13 kare)
 
-Instagram carousel kareleri (1080×1350, 4:5). Görsel dil Fransa videosundan (18 Eki 2026) alındı:
-Bricolage Grotesque + JetBrains Mono, krem `#F1EDE5`, mavi `#264CCF`, kırmızı `#E1000F`, koyu `#161616`.
+Bu klasör, Mac'teki Remotion projesinin (`scratch-2026-10-18-876791`, "Yemen Husiler bilgi videosu" oturumu)
+carousel kısmının bulutta yeniden kurulmuş kopyasıdır. Bileşen adları, API'ler, ölçüler ve kare düzeni o oturumun
+kaydındaki dosyalardan alındı: `src/brand/Carousel.tsx`, `SplitCard.tsx`, `QuoteCard.tsx`, `DonutStat.tsx`,
+`src/videos/carousel/shared.tsx`, `FransaCarousel.tsx`, `src/data/fransa.carousel.ts`.
 
 ```bash
 npm install
-node tools/carousel.mjs fransa          # out/carousel/fransa/01.png … 13.png (öncekiler _eski/<zaman>/ altına taşınır)
-python3 tools/onizleme.py fransa        # out/carousel/fransa/onizleme.png (kırmızı kesikli çizgi = 3:4 ızgara kırpması)
-node tools/tarafsizlik.mjs fransa       # kelime taraması + iki taraflı karelerde uzunluk dengesi
+node tools/carousel.mjs fransa                               # 01.png … 13.png (öncekiler _eski/<zaman>/ altına)
+python3 tools/onizleme.py fransa                             # onizleme.png (tek satır) + izgara_onizleme.png (3:4)
+node tools/tarafsizlik.mjs fransa                            # yasaklı kelime + iki taraf uzunluk dengesi
 node tools/carousel.mjs fransa --qa && python3 tools/kirpma.py fransa   # metin 3:4 kırpmada kalıyor mu
 ```
 
-- Metinler: `src/data/fransa.ts` → `carousel`. Büyük harfli etiketler orada doğru yazılır; bileşenlerde `text-transform` yok.
-- Marka: `src/brand` (`Frame`, `Label`, `Title` ≥64 px, `Body` ≥36 px, `Mark`, `QuoteCard`, `SplitCard`). Boyut alt sınırının altına inen başlık ya da gövde render'ı durdurur.
-- `SplitCard` iki tarafı tek ızgarada çizer: aynı genişlik, aynı font, aynı nötr üst çizgi, aynı animasyon; taraf başına renk parametresi yoktur.
-- Fotoğraf plakaları (`public/photos`) videodaki karelerden çıkarıldı (bu ortamdan Wikimedia'ya erişim yoktu). Asıl dosyalar elinizdeyse aynı adla değiştirin; `Frame`'deki `photoY` kırpma ofsetini ayarlayın.
-- `fransa.ts` yalnızca carousel alanını içerir; `arkaplan/scripts/sync-sources.mjs`'i bu dosyayla çalıştırmayın, video kaynakları silinir. Asıl projedeki `fransa.ts`'e `carousel` alanını taşıyın.
+## Mac'teki projeye aktarma
+
+Brand dosyalarının çoğunu (tokens, ui, Logo, Photo, DataCard) **kopyalamayın**; buradakiler yaklaşık kopyalardır.
+Aktarılacaklar:
+
+| Dosya | Ne yapılacak |
+|---|---|
+| `src/data/fransa.carousel.ts` | Yeni anahtarlar: `cover.teaser`, `election`, `sameWeek1`, `sameWeek2`, `caption.photoLine`; `sources` 7 satır |
+| `src/videos/carousel/FransaCarousel.tsx` | 09, 11, 12 eklendi, 01'e teaser; `FRANSA_SLIDE_COUNT = 13`. `resolvePhotos` importunu `../fransa/context`'ten geri alın |
+| `src/videos/carousel/graphics.tsx` | Yeni (buzdolabı + termometre, giriş ekranı) |
+| `src/videos/carousel/shared.tsx` | `EndSlide`: `photoCredits[]` yerine tek satır `photoLine` |
+| `src/brand/SplitCard.tsx` | `SplitSide.quote?` ve `NEUTRAL_LINE`; satırlar ortak ızgarada (alıntılar aynı hizada) |
+| `src/brand/QuoteCard.tsx` | `QuoteLine` dışa açıldı (SplitCard sütununda kullanılıyor) |
+| `scripts/carousel.mjs` | `fransa.count: 10 → 13` |
+
+`Headline` bileşeni metni küçük harfe çevirir (Mac'teki kareler böyle); üst etiketler data dosyasında büyük harfle yazılır.
+Fotoğraf plakaları (`public/photos`) videodan çıkarıldı; Mac'te asıl dosyalar ve `credits.json` kullanılır.
