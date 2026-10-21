@@ -1,0 +1,73 @@
+{
+  "generated": true,
+  "voice": "gen/voice_tw.wav",
+  "music": "gen/music_tw_bed.wav",
+  "sfx": {},
+  "bpm": 111.99,
+  "beatOffset": 0.511,
+  "sceneStarts": [
+    0.0,
+    6.363,
+    17.054,
+    25.573,
+    34.47,
+    48.878,
+    60.582,
+    71.323
+  ],
+  "totalSeconds": 76.88,
+  "speech": [
+    [
+      0.0,
+      6.938
+    ],
+    [
+      7.188,
+      34.19
+    ],
+    [
+      34.44,
+      48.307
+    ],
+    [
+      48.557,
+      74.613
+    ]
+  ],
+  "tweets": [
+    "tw_f35.webp"
+  ],
+  "cues": {
+    "S0.title": 0.259,
+    "S0.tag": 2.407,
+    "S1.card": 7.432,
+    "S1.reply": 12.414,
+    "S1.replyText": 14.432,
+    "S2.topics": 18.58,
+    "S2.topic0": 19.692,
+    "S2.topic1": 20.414,
+    "S2.topic2": 21.117,
+    "S2.route": 22.636,
+    "S3.drop0": 27.247,
+    "S3.drop1": 27.729,
+    "S3.memes": 28.895,
+    "S3.meme1": 29.895,
+    "S3.alliance": 31.988,
+    "S3.stamp": 33.284,
+    "S4.ban": 35.718,
+    "S4.question": 38.459,
+    "S4.answer0": 40.367,
+    "S4.answer1": 41.681,
+    "S4.bot": 44.163,
+    "S4.botSub": 45.404,
+    "S5.title": 48.978,
+    "S5.region": 52.053,
+    "S5.line0": 52.886,
+    "S5.line1": 59.053,
+    "S6.tag": 63.034,
+    "S6.meeting": 64.441,
+    "S6.oneChina": 67.182,
+    "S6.split": 69.256,
+    "S7.cta": 73.182
+  }
+}

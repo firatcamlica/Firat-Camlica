@@ -1,0 +1,10 @@
+node_modules/
+out/
+public/gen/
+.env
+# Herkese açık repo: kullanıcının ses/müzik dosyaları, üçüncü taraf ekran görüntüleri ve teslim klasörü girmez.
+çin_arkaplan/
+public/voiceover_tw.mp3
+public/music_tw.mp3
+public/tweets/*
+!public/tweets/.gitkeep
