@@ -225,7 +225,6 @@ export const TEXT = {
   s7: {
     question: 'Sence bu savaşı kim kazandı?',
     cta: "En iyi meme'i yorumlara bırak.",
-    endNote: 'kaynaklar: arkaplan.pages.dev',
   },
 };
 

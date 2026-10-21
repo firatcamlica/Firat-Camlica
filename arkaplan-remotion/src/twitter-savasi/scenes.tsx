@@ -28,6 +28,8 @@ import {
   WarMap,
   WordByWord,
 } from './parts';
+import {CameraMotionBlur} from '@remotion/motion-blur';
+import {Morph} from './morph';
 import {AUDIO, sceneClock, sceneFrames, snapLocal, STARTS} from './timing';
 
 const slot = (id: string) => TWEETS.find((t) => t.id === id)!;
@@ -98,39 +100,19 @@ const KM = Math.round(haversineKm(COORDS.istanbul, COORDS.pekin) / 10) * 10;
 
 // --- S0 KANCA -----------------------------------------------------------------
 
+// Tek şekilli açılış (morph.tsx): logo → buton → alan → "bu mu?" → yükleniyor → pin → küre → eşleşme → sekmeler → logo.
+// Izgara müziğin vuruşu; müzik yoksa 120 BPM.
 export const S0: React.FC = () => {
   const f = useCurrentFrame();
-  const {durationInFrames: d} = useVideoConfig();
-  const title = cue('S0', 'title');
-  const tag = cue('S0', 'tag');
-  const cam: Camera = {lon: 72, lat: 38, scale: interpolate(f, [0, d], [470, 540])};
-  const grow = interpolate(f, [4, Math.min(d - 10, 75)], [0, 0.46], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
-  const half = Math.floor(ROUTE.length / 2);
-  const west = ROUTE.slice(0, half + 1);
-  const east = [...ROUTE].reverse().slice(0, half + 1);
   return (
     <AbsoluteFill>
-      <WarMap cam={cam} cy={820}>
-        {(p) => {
-          const [ix, iy] = pt(p, COORDS.istanbul);
-          const [bx, by] = pt(p, COORDS.pekin);
-          return (
-            <>
-              <RouteArrow proj={p} pts={west} progress={grow / 0.5} color={SIDES.tr.color} />
-              <RouteArrow proj={p} pts={east} progress={grow / 0.5} color={SIDES.cn.color} />
-              <Target x={ix} y={iy} color={SIDES.tr.color} label={SIDES.tr.label} labelSide="right" appear={fade(f, 0, 8)} />
-              <Target x={bx} y={by} color={SIDES.cn.color} label={SIDES.cn.label} labelSide="left" appear={fade(f, 3, 11)} />
-            </>
-          );
-        }}
-      </WarMap>
-      <TopTag tag="" appear={fade(f, 0, 9)} />
-      <div style={{position: 'absolute', left: SAFE.left, right: SAFE.right, top: 1090}}>
-        <WordByWord text={TEXT.s0.title} t={f - title} size={108} every={6} />
-        <Mono size={34} color={RED} style={{marginTop: 30, opacity: fade(f, tag, tag + 8)}}>
-          {TEXT.s0.tag}
-        </Mono>
-      </div>
+      <WarMap cam={{lon: 72, lat: 38, scale: 470}} cy={820} dim={0.35} />
+      <CameraMotionBlur samples={6} shutterAngle={180}>
+        <AbsoluteFill>
+          <Morph bpm={AUDIO.bpm ?? 120} offset={AUDIO.bpm ? AUDIO.beatOffset : 0.5} fitW={CONTENT_W} fitH={1000} cx={SAFE.left + CONTENT_W / 2} cy={900} maxScale={2.1} />
+        </AbsoluteFill>
+      </CameraMotionBlur>
+      <TopTag tag={TEXT.s0.tag} appear={fade(f, 0, 9)} />
     </AbsoluteFill>
   );
 };
@@ -625,7 +607,7 @@ export const S7: React.FC = () => {
         <div style={{font: `500 56px/1.2 ${FONTS.sans}`, color: COLORS.cream, opacity: fade(f, cta, cta + 8)}}>{TEXT.s7.cta}</div>
       </Center>
       <Sequence from={end}>
-        <EndCard note={TEXT.s7.endNote} />
+        <EndCard />
       </Sequence>
     </AbsoluteFill>
   );
