@@ -411,6 +411,8 @@ export const S4: React.FC = () => {
   const answers = [cue('S4', 'answer0'), cue('S4', 'answer1')];
   const bot = cue('S4', 'bot');
   const botSub = cue('S4', 'botSub');
+  // X'in açıklaması, ana satırla "ama…" satırının ortasında girer.
+  const botCtx = Math.round((bot + botSub) / 2);
   if (f < ban) {
     const jitter = f < 8 ? (f % 2 ? 14 : -14) : 0;
     return (
@@ -469,11 +471,19 @@ export const S4: React.FC = () => {
               ))}
             </svg>
             <div style={{font: `800 80px/1.08 ${FONTS.sans}`, marginTop: 22}}>{TEXT.s4.bot.main}</div>
-            <div style={{font: `500 42px/1.25 ${FONTS.sans}`, marginTop: 20, color: COLORS.dimDark, opacity: fade(f, botSub - 4, botSub + 4)}}>{TEXT.s4.bot.sub}</div>
+            {/* Belgelenmiş vaka: ana satırdan sonra, "ama…" satırından önce girer */}
+            <div style={{marginTop: 26, paddingLeft: 22, borderLeft: `6px solid ${COLORS.blue}`, opacity: fade(f, botCtx - 4, botCtx + 4)}}>
+              <Mono size={26} color={'#8FA6FF'}>
+                {TEXT.s4.bot.context.tag}
+              </Mono>
+              <div style={{font: `500 44px/1.22 ${FONTS.sans}`, marginTop: 8}}>{TEXT.s4.bot.context.text}</div>
+            </div>
+            <div style={{font: `500 42px/1.25 ${FONTS.sans}`, marginTop: 26, color: COLORS.dimDark, opacity: fade(f, botSub - 4, botSub + 4)}}>{TEXT.s4.bot.sub}</div>
           </TiltCard>
         </Center>
       )}
       {f >= ban && f < answers[0] ? <SourceLine text={TEXT.s4.ban.source} /> : null}
+      {f >= bot ? <SourceLine text={TEXT.s4.bot.context.source} appear={fade(f, botCtx - 4, botCtx + 4)} /> : null}
     </AbsoluteFill>
   );
 };

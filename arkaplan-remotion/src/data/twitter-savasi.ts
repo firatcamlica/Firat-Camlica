@@ -190,9 +190,15 @@ export const TEXT = {
     answers: ['VPN ile bağlananlar', 'Çin dışında yaşayan Çince konuşanlar'],
     bot: {
       main: 'Bot iddiaları var.',
-      sub: 'Koordineli bir bot ağını gösteren doğrulanmış bir analiz yok.',
-      // Bu tartışmaya özgü bot iddialarını aktaran bir haber kaynağı bulunamadı.
-      source: TODO_SOURCE,
+      // İddia: X'te bu tartışmadaki hesapların bot olduğunu öne süren paylaşımlar (21 Eki 2026). Kanıt değil.
+      source: "Kaynak: X'te bot iddiası içeren paylaşımlar (21 Eki 2026)",
+      context: {
+        tag: 'X · 28 AĞU 2026',
+        text: "X, Çin kaynaklı olduğundan şüphelendiği 200.000 hesaplık bir bot çiftliği tespit etti.",
+        // X: hesapların 200'ü ABD'deki yapay zekâ/enerji tartışmasını manipüle ediyordu; operatörlerle ilgili ayrıntı verilmedi.
+        source: 'Kaynak: X Global Government Affairs (28 Ağu 2026); Engadget, TechSpot (28 Ağu 2026)',
+      },
+      sub: 'Ama bu tartışmadaki hesapların bot olduğunu gösteren bir analiz yok.',
     },
   },
 
