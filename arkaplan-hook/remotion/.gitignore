@@ -1,0 +1,5 @@
+node_modules/
+out/
+# Kullanıcının ürettiği ses dosyaları repoya girmez
+public/sfx/*
+!public/sfx/.gitkeep
