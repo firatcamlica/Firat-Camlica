@@ -62,11 +62,12 @@ export const PHOTO_QUERIES: Record<string, {queries: string[]; note: string; pin
   'f35a-usaf': {
     queries: ['F-35A hangar', 'F-35A Lightning II shelter', 'F-35A Lightning II flight line', 'F-35A Lightning II parked'],
     note: 'Hangar içinde/önünde duran F-35A (ABD Hava Kuvvetleri, kamu malı); yoksa apronda',
-    pin: 'File:Vermont Participates in Air Defender 2023 (7933625).jpg',
+    pin: 'File:F35A Lightning IIs arrive at Misawa Air Base (9588487).jpg',
   },
   's400-milru': {
     queries: ['"S-400" Triumf', 'Триумф С-400', 'S-400 Triumf launcher', 'S-400 SAM'],
-    note: 'S-400 (mil.ru, CC BY 4.0)',
+    note: 'S-400 rampa aracı (Commons, CC BY); mil.ru adayı bulunamadı',
+    pin: 'File:S-400 Triumf (27102989027).jpg',
   },
 };
 

@@ -90,7 +90,7 @@ def faces(data):
 
 
 def candidates(query, pin=None):
-    params = {'action': 'query', 'format': 'json', 'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size|mime|timestamp', 'iiurlwidth': 2400}
+    params = {'action': 'query', 'format': 'json', 'prop': 'imageinfo', 'iiprop': 'url|extmetadata|size|mime|timestamp', 'iiurlwidth': 4000}
     if pin:
         params['titles'] = pin
     else:
@@ -181,6 +181,17 @@ def collect_candidates(n):
     (root / 'index.json').write_text(json.dumps(index, ensure_ascii=False, indent=1))
 
 
+def credit_line(rec):
+    """Ekran kredisi tek satır: "Foto: <kişi> (<kurum>) / <lisans>" — "U.S. Air Force photo by X" biçimi ayrıştırılır."""
+    a = rec['author']
+    m = re.match(r'^(U\.S\. [A-Za-z ]+?) (?:photo|video) by (.+)$', a)
+    orgs = {'U.S. Air Force': 'ABD Hava Kuvvetleri', 'U.S. Air National Guard': 'ABD Hava Ulusal Muhafızları'}
+    if m:
+        a = f"{m.group(2)} ({orgs.get(m.group(1), m.group(1))})"
+    lic = 'kamu malı' if rec['license'].lower().startswith('public domain') else rec['license']
+    return f'Foto: {a} / {lic}'
+
+
 def main():
     if len(sys.argv) > 2 and sys.argv[1] == '--candidates':
         return collect_candidates(int(sys.argv[2]))
@@ -222,7 +233,7 @@ def main():
             tmp.unlink()
             credits['photos'] = [c for c in credits['photos'] if c.get('id') != pid] + [rec]
         entry = assets['photos'].get(pid, {})
-        entry.update({'file': f'photos/{pid}.jpg', 'credit': f"Foto: {rec['author']} / {rec['license']}"})
+        entry.update({'file': f'photos/{pid}.jpg', 'credit': credit_line(rec)})
         assets['photos'][pid] = entry
     CREDITS.write_text(json.dumps(credits, ensure_ascii=False, indent=2) + '\n')
     ASSETS.write_text(json.dumps(assets, ensure_ascii=False, indent=2) + '\n')

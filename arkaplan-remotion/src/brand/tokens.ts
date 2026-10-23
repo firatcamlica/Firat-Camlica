@@ -64,7 +64,7 @@ export const LAYOUT = {
   /** KAYNAK satırı (altyazının hemen üstü) — CSS bottom değeri */
   sourceBottom: 1920 - 1372 + 14,
   /** "Temsili görüntü" / "ÇİZİM" etiketi — CSS bottom değeri */
-  labelBottom: 1920 - 1372 + 54,
+  labelBottom: 1920 - 1372 + 72,
   /** Sahne içeriğinin alt sınırı */
   contentBottom: 1290,
 };

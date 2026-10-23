@@ -134,6 +134,7 @@ export const S2: React.FC = () => {
       <Fade at={prog} style={{position: 'absolute', left: CONTENT.left, top: 1140}}>
         <ProgressSteps steps={STEPS} width={CONTENT.width} at={prog} upTo={2} />
       </Fade>
+      <MediaLabel text={TEXT.s2.drawingLabel} />
       <SourceLine text={src('S2')} />
     </Screen>
   );
@@ -335,14 +336,14 @@ export const S7: React.FC = () => {
           ]}
           markers={[{at: [39.5, 44.5], frame: stamp, dx: 10, dy: -30, node: <Stamp text={TEXT.stamps.approval} tone="wait" at={stamp} rotate={-4} size={34} />}]}
         />
-        <Fade at={pr + 24} dy={10} style={{position: 'absolute', left: 14, top: 488}}>
-          <div style={{fontFamily: FONTS.mono, fontWeight: 500, fontSize: 21, color: COLORS.cream, background: 'rgba(16,19,31,0.85)', borderRadius: 8, padding: '8px 12px'}}>{keepHyphens(qatarNote)}</div>
-        </Fade>
       </div>
       <div style={{position: 'absolute', left: CONTENT.left, top: 935}}>
         <PressCard text={press} startFrame={pr} until={stamp + 6} />
         <QuoteCard {...lavrov} size="small" width={CONTENT.width} startFrame={stamp + 6} />
       </div>
+      <Fade at={pr + 24} until={stamp + 6} dy={10} style={{position: 'absolute', left: CONTENT.left, top: 1150, width: CONTENT.width}}>
+        <div style={{fontFamily: FONTS.mono, fontWeight: 500, fontSize: 24, lineHeight: 1.35, color: COLORS.cream}}>{keepHyphens(qatarNote)}</div>
+      </Fade>
       <SourceLine text={src('S7')} />
     </Screen>
   );

@@ -1,5 +1,10 @@
 {
-  "photos": {},
+  "photos": {
+    "f35a-usaf": {
+      "file": "photos/f35a-usaf.jpg",
+      "credit": "Foto: Senior Airman Patrick Boyle (ABD Hava Kuvvetleri) / kamu malı"
+    }
+  },
   "broll": {},
   "note": "tools/f35/fetch_photos.py, fetch_broll.py ve depth.py tarafından yazılır. Boşsa sahneler vektör çizime döner."
 }

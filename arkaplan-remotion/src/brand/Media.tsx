@@ -111,6 +111,10 @@ export const MediaLabel: React.FC<{text: string; opacity?: number; bottom?: numb
       color: tone === 'dark' ? COLORS.dimDark : COLORS.dimLight,
       opacity,
       textTransform: 'uppercase',
+      whiteSpace: 'nowrap',
+      maxWidth: 868,
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
     }}
   >
     {text}
