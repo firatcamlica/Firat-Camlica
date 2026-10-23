@@ -28,7 +28,7 @@ jobs:
       - name: Bağımlılıklar
         run: |
           npm ci --ignore-scripts
-          pip install numpy pillow opencv-python-headless
+          pip install numpy pillow "opencv-python-headless<4.12"
       - name: Veri
         run: node tools/f35/data.mjs
       - name: Adaylar ya da seçili fotoğraflar

@@ -81,7 +81,8 @@ def pixabay(q, key, n, reject):
 def face_frames(path, step=0.25):
     try:
         import cv2
-    except ImportError:
+        cv2.CascadeClassifier
+    except (ImportError, AttributeError):
         return None
     cap = cv2.VideoCapture(str(path))
     fps = cap.get(cv2.CAP_PROP_FPS) or 30

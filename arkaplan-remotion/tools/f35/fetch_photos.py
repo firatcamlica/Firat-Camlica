@@ -78,7 +78,8 @@ def faces(data):
     try:
         import cv2
         import numpy as np
-    except ImportError:
+        cv2.CascadeClassifier  # bazı kurulumlarda cv2 boş ad alanı olarak gelir
+    except (ImportError, AttributeError):
         return None
     img = cv2.imdecode(np.frombuffer(data, np.uint8), cv2.IMREAD_GRAYSCALE)
     if img is None:
