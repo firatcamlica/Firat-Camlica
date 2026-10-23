@@ -35,15 +35,16 @@ const srt = (audio.captions ?? []).map((c, i) => `${i + 1}\n${ts(c.start)} --> $
 fs.writeFileSync(out(`${d.SLUG}.srt`), srt);
 
 // --- SOURCES.md --------------------------------------------------------------
+const T = d.TEXT;
 const screen = {
-  S1: [d.TEXT.hook],
-  S2: [`${d.TEXT.s2.counter.value}${d.TEXT.s2.counter.suffix} ${d.TEXT.s2.counter.label}`, d.TEXT.s2.sub],
-  S3: [...d.TEXT.s3.events.map((e) => `${e.date} · ${e.text}`), `parantez: ${d.TEXT.s3.bracket.label}`],
-  S4: [`${d.TEXT.s4.left.title}: ${d.TEXT.s4.left.text}`, `${d.TEXT.s4.right.title}: ${d.TEXT.s4.right.text}`, d.TEXT.s4.footer],
-  S5: [`${d.TEXT.s5.quote.name} · ${d.TEXT.s5.quote.title} · ${d.TEXT.s5.quote.date}: "${d.TEXT.s5.quote.text}" (özet)`, d.TEXT.s5.rule.text, d.TEXT.s5.rule.footer],
-  S6: [d.TEXT.s6.cardA.text, d.TEXT.s6.cardB.text, `${d.TEXT.s6.cardC.name} · ${d.TEXT.s6.cardC.title} · ${d.TEXT.s6.cardC.date}: "${d.TEXT.s6.cardC.text}" (özet)`],
-  S7: [`${d.TEXT.s7.left.country} · ${d.TEXT.s7.left.value} ${d.TEXT.s7.left.unit} · ${d.TEXT.s7.left.lines.join(' · ')}`, `${d.TEXT.s7.right.country} · ${d.TEXT.s7.right.value} ${d.TEXT.s7.right.unit} · ${d.TEXT.s7.right.lines.join(' · ')}`],
-  S8: [d.TEXT.s8.small, d.TEXT.s8.big, d.TEXT.s8.card],
+  S1: [`"${T.quote.text}" — ${T.quote.author} · ${T.quote.work} (edebi epigraf)`, T.hook, `damga: ${T.stamps.wait}`],
+  S2: [T.s2.kicker, `${T.s2.counter.value}${T.s2.counter.suffix} ${T.s2.counter.label}`, T.s2.sub, 'ilerleme: SİPARİŞ 2002 ✓ · ÜRETİM 2018 ✓'],
+  S3: [T.s3.kicker, T.s3.note, `${T.s3.calendar.from} → ${T.s3.calendar.to} ${T.s3.calendar.month}`, T.s3.big, `damga: ${T.stamps.stopped}`],
+  S4: [T.s4.kicker, `${T.s4.left.title}: ${T.s4.left.text}`, `${T.s4.right.title}: ${T.s4.right.text}`, T.s4.footer],
+  S5: [T.s5.kicker, `${T.s5.quote.name} · ${T.s5.quote.title} · ${T.s5.quote.date}: "${T.s5.quote.text}" (özet)`, `damga: ${T.stamps.extra}`, T.s5.rule, T.s5.footer],
+  S6: [T.s6.wait, ...[T.s6.left, T.s6.right].map((p) => `${p.pkg} · ${p.name} · Konum: ${p.location} · Son güncelleme: ${p.updated} · ${T.stamps.wait} · ${p.note}`)],
+  S7: [T.s7.kicker, T.s7.press, T.s7.qatarNote, `damga: ${T.stamps.approval}`, `${T.s7.lavrov.name} · ${T.s7.lavrov.title} · ${T.s7.lavrov.date}: "${T.s7.lavrov.text}" (özet)`],
+  S8: [T.s8.kicker, ...T.s8.lines, `anahtarlar: ${T.s8.keys.join(' · ')}`, T.s8.question],
 };
 const all = [];
 let md = `# Kaynaklar · ${d.TITLE}\n\nSlug: \`${d.SLUG}\` · Site: https://arkaplan.pages.dev/#${d.SLUG}\n\n`;
@@ -55,6 +56,7 @@ for (const s of d.SCENES) {
   md += `## ${s.id} · ${s.name}\n\nEkrandaki iddialar:\n${(screen[s.id] ?? []).map((x) => `- ${x}`).join('\n')}\n\nKaynak: ${names.join(' · ')}\n\n`;
 }
 md += `## Tüm kaynaklar (${all.length})\n\n| Kaynak | Tarih | URL |\n|---|---|---|\n${all.map((n) => `| ${n.replace(/,\s*\d.*$|,\s*(Oca|Şub|Mar|Nis|May|Haz|Tem|Ağu|Eyl|Eki|Kas|Ara).*$/, '')} | ${(n.match(/\d{1,2} \S+ 20\d\d|(?:Oca|Şub|Mar|Nis|May|Haz|Tem|Ağu|Eyl|Eki|Kas|Ara) 20\d\d/) ?? [''])[0]} | |`).join('\n')}\n`;
+md += `\n## Alıntı\n\n- Ahmet Hamdi Tanpınar, *Huzur*, 1949, birinci bölüm: "Şark oturup beklemenin yeridir." (edebi epigraf; kişi ya da ülke yorumu olarak sunulmaz)\n`;
 md += `\nHarita verisi: Natural Earth 1:50m (kamu malı), world-atlas paketi üzerinden.\n`;
 fs.writeFileSync(out('SOURCES.md'), md);
 
@@ -76,11 +78,11 @@ at += `## Stok videolar (B-roll)\n\n`;
 at += clips.length
   ? `| Sahne | Sorgu | Kaynak sayfa | Yazar | Lisans | İndirme | Yüz kontrolü |\n|---|---|---|---|---|---|---|\n${clips.map((c) => `| ${c.scene} | ${c.query} | ${c.pageUrl} | ${c.author} | [${c.license}](${c.licenseUrl}) | ${c.downloaded} | ${c.faceCheck} |`).join('\n')}\n\n`
   : `Kullanılmadı (PEXELS_API_KEY / PIXABAY_API_KEY yok ya da uygun klip bulunamadı).\n\n`;
-at += `## Ses\n\n- Seslendirme: \`public/${d.voiceFile}\` (${audio.voice ? 'kullanıldı' : 'bu render\'da YOK'}), kanalın kendi kaydı.\n`;
+at += `## Ses\n\n- Seslendirme: \`public/${d.voiceFile}\` (${audio.voice ? 'kullanıldı' : 'bu render\'da YOK'}), ElevenLabs ile üretildi (ses: Derya), kanalın kaydı.\n`;
 at += `- Müzik: \`public/${d.musicFile}\` (${audio.music ? 'kullanıldı' : 'bu render\'da YOK'}). Lisans bilgisini buraya ekleyin.\n`;
 at += `- SFX: ${(audio.sfx ?? []).map((s) => `${s.name} (${s.at} sn, ${s.origin})`).join(', ') || 'yok'}.\n\n`;
-at += `## Yazı tipi, harita, model\n\n- Bricolage Grotesque, JetBrains Mono: SIL Open Font License 1.1 (@fontsource).\n- Harita: Natural Earth (kamu malı) · world-atlas (ISC).\n`;
+at += `## Yazı tipi, harita, model\n\n- Bricolage Grotesque, JetBrains Mono, Playfair Display: SIL Open Font License 1.1 (@fontsource).\n- Harita: Natural Earth (kamu malı) · world-atlas (ISC).\n`;
 at += used.some(([, p]) => p.fg) ? `- Derinlik: Depth Anything V2 Small (Apache 2.0), yerel.\n` : `- Derinlik (parallax): Depth Anything V2 Small (Apache 2.0) — bu render'da kullanılmadı (fotoğraf yok).\n`;
-at += `- Çizimler (hangar, F-35 silüeti, S-400 aracı): kanal için çizildi, temsilîdir.\n`;
+at += `- Çizimler (F-35 silüeti S2'de; takip ekranı öğeleri): kanal için çizildi, temsilîdir.\n`;
 fs.writeFileSync(out('ATTRIBUTION.md'), at);
 console.log(`out/${d.SLUG}.srt (${(audio.captions ?? []).length} altyazı), out/SOURCES.md (${all.length} kaynak), out/ATTRIBUTION.md`);

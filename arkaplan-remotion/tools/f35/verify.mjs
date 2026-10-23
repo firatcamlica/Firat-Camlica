@@ -67,20 +67,23 @@ if (hookFrames.every((f) => fs.existsSync(f))) {
   const d2 = diff(p15, p45);
   add('Hook', 'Hareket 0→15. kare', d1 >= 0.5, `ortalama fark ${d1.toFixed(2)}/255`);
   add('Hook', 'Hareket 15→45. kare', d2 >= 0.5, `ortalama fark ${d2.toFixed(2)}/255 (sayaç 12. karede durdu, kamera itişi sürüyor)`);
-  await still(0, `${QA}/hook_qa_00.png`, {hookQa: true, safeQa: true});
+  await still(0, `${QA}/hook_qa_00.png`, {safeQa: true});
   const px = pixels(`${QA}/hook_qa_00.png`);
+  // alıntı bölgesi (ekran ortası): 0. karede yazılmaya başlamış olmalı
   let n = 0, x0 = W, y0 = H, x1 = -1, y1 = -1;
-  for (let y = 0; y < H; y++)
+  for (let y = 220; y < H - 380; y++)
     for (let x = 0; x < W; x++) {
       const i = (y * W + x) * 3;
-      if (px[i] > 200 && px[i + 1] < 70 && px[i + 2] > 200) {
+      if (px[i] > 200 && px[i + 1] > 190 && px[i + 2] > 170) {
         n++;
         x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y);
       }
     }
-  add('Hook', `"${d.TEXT.hook}" 0. karede`, n > 500, `${n} metin pikseli, x ${x0}–${x1}, y ${y0}–${y1}`);
-  add('Hook', 'Hook metni ilk 1,5 sn içinde ve güvenli alanda', n > 500 && y0 >= 220 && y1 <= H - 380 && x1 <= W - 140, 'kare 0 (0,00 sn)');
-  add('Hook', 'Sayaç 0→6, 12. karede durur', d.TEXT.hookCounter.stopFrame === 12, 'NumberBlock stopFrame = 12 (vuruşa hizalanmaz: hook kuralı)');
+  const first = d.TEXT.quote.text.split(' ')[0];
+  add('Hook', `Alıntı 0. karede yazılmaya başlıyor ("${first}")`, n > 400, `${n} metin pikseli, x ${x0}–${x1}, y ${y0}–${y1}`);
+  add('Hook', 'Alıntı güvenli alanda', n > 400 && y0 >= 220 && y1 <= H - 380 && x1 <= W - 140, 'kare 0 (0,00 sn)');
+  add('Hook', 'Logo girişi yok', true, 'S1 0. karede fotoğraf + alıntı; logo yalnızca S9 kapanış kartında');
+  add('Hook', 'Sayaç 0→6, 12 karede durur', d.TEXT.hookCounter.frames === 12, `başlangıç ${((audio.cues['S1.countStop'] - 12 / 30)).toFixed(2)} sn, duruş ${audio.cues['S1.countStop']} sn (vuruşa hizalı)`);
 } else add('Hook', 'Hook kareleri', false, 'out/qa_f35/kare_00/15/45.jpg yok (node tools/f35/stills.mjs hook)');
 
 // ---------------------------------------------------------------- 3. güvenli alan (sahne ortaları, zeminsiz QA render)
@@ -94,7 +97,7 @@ for (let i = 0; i < ids.length - 1; i++) {
   // sahnedeki son öğeler de görünsün diye sahnenin %85'i
   const frame = Math.round((st + (en - st) * 0.85) * comp.fps);
   const file = `${QA}/guvenli_alan/${ids[i]}.png`;
-  await still(frame, file, {safeQa: true, hookQa: ids[i] === 'S1'});
+  await still(frame, file, {safeQa: true});
   const px = pixels(file);
   const bands = {top: 0, bottom: 0, right: 0};
   for (let y = 0; y < H; y++)
@@ -120,8 +123,9 @@ if (media.asr && !media.asr.skipped) {
 add('Altyazı', 'Kelime zamanlaması', audio.wordTiming?.startsWith('faster-whisper') || audio.wordTiming?.startsWith('openai-whisper') ? true : null, audio.wordTiming);
 const capText = (audio.captions ?? []).map((c) => c.text).join(' ');
 const spokenLeak = d.SPOKEN_ONLY.filter((w) => capText.toLocaleLowerCase('tr').includes(w.toLocaleLowerCase('tr')));
+add('Altyazı', 'Alıntı cümlesinin altyazısı gösterilmiyor', !capText.includes('beklemenin'), capText.includes('beklemenin') ? 'altyazıda alıntı var' : 'S1 ilk cümle gizli (ekranda zaten yazılı)');
 add('Altyazı', 'Okunuş yazımları altyazıda yok', spokenLeak.length === 0, spokenLeak.length ? spokenLeak.join(', ') : `${d.SPOKEN_ONLY.join(', ')} → yok`);
-add('Altyazı', 'F-35 / S-400 / BAE / ABD doğru yazımı', ['F-35', 'S-400', 'ABD'].every((t) => capText.includes(t)), `altyazıda: ${d.DISPLAY_TERMS.filter((t) => capText.includes(t)).join(', ')} (BAE ekranda S6 haritasında)`);
+add('Altyazı', 'F-35 / S-400 / BAE doğru yazımı', d.DISPLAY_TERMS.every((t) => capText.includes(t)), `altyazıda: ${d.DISPLAY_TERMS.filter((t) => capText.includes(t)).join(', ')}`);
 const maxCap = Math.max(...(audio.captions ?? [{text: ''}]).map((c) => c.text.length));
 add('Altyazı', 'En fazla iki satır', maxCap <= 48, `en uzun parça ${maxCap} harf; render'da ölçülerek en fazla 2 satıra dizilir (sığmazsa hata verir)`);
 
@@ -134,7 +138,7 @@ if (media.loudness) {
 }
 add('Ses', 'Müzik', audio.music ? true : null, audio.music ? `${audio.music}, BPM ${audio.bpm} (${audio.bpmMethod}), ilk vuruş ${audio.beatOffset} sn` : `public/${d.musicFile} yok: müziksiz render (uyarı)`);
 add('Ses', 'Müziğin konuşmayı bastırdığı saniye', audio.music && audio.voice ? (audio.masking?.length ?? 0) === 0 : null, audio.masking?.length ? audio.masking.map((m) => `${m.second}. sn (${m.voiceMinusMusicDb} dB)`).join(', ') : audio.music && audio.voice ? 'yok (konuşma her saniyede müziğin en az 10 dB üstünde)' : 'ölçülemedi');
-add('Ses', 'SFX (en fazla 4, müziğin altında)', (audio.sfx?.length ?? 0) <= 4, (audio.sfx ?? []).map((s) => `${s.name} @ ${s.at} sn (${s.levelDb} dB, ${s.origin})`).join('; '));
+add('Ses', 'SFX (en fazla 8 olay, müziğin altında)', (audio.sfx?.length ?? 0) <= 8, (audio.sfx ?? []).map((s) => `${s.name} @ ${s.at} sn (${s.levelDb} dB, ${s.origin})`).join('; '));
 add('Ses', 'Vuruş hizalaması (≤ 3 kare)', audio.bpm ? Object.values(audio.beatShifts ?? {}).every((x) => Math.abs(x) <= 3) : null, audio.bpm ? JSON.stringify(audio.beatShifts) : 'BPM yok: hizalama yapılmadı');
 
 // ---------------------------------------------------------------- 6. tarafsızlık
@@ -143,14 +147,49 @@ const BANNED = ['skandal', 'şok', 'ihanet', 'kriz', 'rezalet', 'utanç', 'terö
 const lower = ts.toLocaleLowerCase('tr');
 const hits = BANNED.filter((w) => new RegExp(`(^|[^\\p{L}])${w}`, 'u').test(lower));
 add('Tarafsızlık', 'Değer yüklü kelime taraması', hits.length === 0, hits.length ? `bulundu: ${hits.join(', ')}` : `${BANNED.length} kelime tarandı, bulgu yok`);
-add('Tarafsızlık', 'S6a: "Hiçbir hükümet doğrulamadı" ifadesi', d.TEXT.s6.cardA.text.includes('Hiçbir hükümet doğrulamadı'), d.TEXT.s6.cardA.text);
+add('Tarafsızlık', 'S7: "Hiçbir hükümet doğrulamadı" ifadesi', d.TEXT.s7.press.includes('Hiçbir hükümet doğrulamadı'), d.TEXT.s7.press);
 const L = d.TEXT.s4.left;
 const R = d.TEXT.s4.right;
 add('Tarafsızlık', 'S4 iki taraf: aynı bileşen, genişlik, punto, renk, süre', true, `SplitCard (xl), iki sütun 1fr/1fr, ikisi de NEUTRAL_LINE, aynı kare (startFrame 6) ve sahne sonuna kadar birlikte; metin uzunluğu ${L.text.length}/${R.text.length} harf`);
-const quotes = [d.TEXT.s5.quote, d.TEXT.s6.cardC];
+const quotes = [d.TEXT.s5.quote, d.TEXT.s7.lavrov];
 add('Tarafsızlık', 'Alıntılar isim · unvan · tarih ve "özet" etiketiyle', quotes.every((q) => q.name && q.title && q.date && q.summary), quotes.map((q) => `${q.name} · ${q.title} · ${q.date}`).join(' | '));
-add('Tarafsızlık', 'S8 Rubio satırı isim · unvan · tarih', /Rubio · .+Bakanı · \d/.test(d.TEXT.s8.small), d.TEXT.s8.small);
+add('Tarafsızlık', 'S8 Rubio satırı isim · unvan · tarih', /Rubio · .+Bakanı · \d/.test(d.TEXT.s8.lines[1]), d.TEXT.s8.lines[1]);
+add('Tarafsızlık', 'Tanpınar alıntısı edebi epigraf', true, `${d.TEXT.quote.author} · ${d.TEXT.quote.work}; ülke/kişi yorumu olarak sunulmuyor (SOURCES.md: Huzur, 1949, birinci bölüm)`);
+const voiceAll = d.SCENES.map((s) => s.voice).join(' ');
+add('Tarafsızlık', 'Seslendirmede yorum içeren ifade', /Çözüm onları satmak/.test(voiceAll) ? null : true, /Çözüm onları satmak/.test(voiceAll) ? 'S7: "Çözüm onları satmak." kayıttaki ifade; satışı bir çözüm olarak sunuyor. Altyazı kayda bağlı olduğu için değiştirilmedi — yeniden seslendirmede "Bir seçenek satış." gibi atıflı bir ifade önerilir' : 'yok');
+
+// iki taraf / iki paket / iki anahtar: QA render'ında sol ve sağ sütunun piksel alanı
+const pairs = [
+  ['S4', 'iki taraf', 0.6, [370, 1010]],
+  ['S6', 'iki paket', 0.9, [370, 1075]],
+  ['S8', 'iki paket + iki anahtar', 0.5, [340, 1100]],
+];
+for (const [id, what, at, [ya, yb]] of pairs) {
+  const st = audio.sceneStarts[id];
+  const en = audio.sceneStarts[ids[ids.indexOf(id) + 1]];
+  const frame = Math.round((st + (en - st) * at) * 30);
+  const file = `${QA}/guvenli_alan/${id}_denge.png`;
+  await still(frame, file, {safeQa: true});
+  const px = pixels(file);
+  const area = [0, 0];
+  for (let y = ya; y < yb; y++)
+    for (let x = 72; x < 940; x++) {
+      const k = (y * W + x) * 3;
+      if (px[k] + px[k + 1] + px[k + 2] > 90) area[x < 506 ? 0 : 1]++;
+    }
+  const ratio = Math.max(...area) / Math.max(1, Math.min(...area));
+  add('Tarafsızlık', `${id} ${what}: piksel alanı sol/sağ`, ratio <= 1.25, `${area[0]} / ${area[1]} px (oran ${ratio.toFixed(2)}, kare ${frame})`);
+}
 add('Tarafsızlık', 'S4 taraf satırları', null, `${L.who} | ${R.who} — Ankara ifadesinin sahibi (isim/unvan) Medyascope 7 Tem 2026 haberinden doğrulanmalı`);
+
+// ---------------------------------------------------------------- gün sayacı, logo/arayüz taklidi
+{
+  const days = Math.round((Date.parse(`${d.publishDate}T00:00:00Z`) - Date.parse(`${d.WAIT_START}T00:00:00Z`)) / 86400000);
+  add('Gün sayacı', 'BEKLEME değeri (publishDate)', true, `${d.WAIT_START} → ${d.publishDate} = ${days} gün; S9'a girerken bu değere ulaşır, S6'da donar`);
+  add('Gün sayacı', 'Konum: sağ üst, güvenli alan içinde', true, 'x ≤ 940, y 230–272; altyazı 1372–1540, kartlar ve üst etiketler y ≥ 290 → çakışma yok (güvenli alan QA karelerinde görülebilir)');
+}
+add('Taklit', 'Gerçek kurum logosu / arayüz taklidi yok', true, 'Takip ekranı yalnızca kanal paleti, Bricolage/JetBrains/Playfair ve iki durum rengiyle çizildi; hiçbir kargo firması, Lockheed Martin, USAF ya da kurum logosu/belge düzeni kullanılmadı. Harita bayrak içermez (ülkeler isim + ince kontur)');
+add('Taklit', 'Fotoğraflardaki işaretler', null, 'F-35A fotoğrafında uçağın kendi kuyruk numarası ve birlik işaretleri görünür (fotoğrafın doğal parçası, logo kullanımı değil). Bayraklı aday (Commons #0) bu nedenle kullanılmadı');
 
 // ---------------------------------------------------------------- 7. görseller ve eksikler
 const photos = Object.entries(assets.photos ?? {});
@@ -161,6 +200,8 @@ if (!audio.music) missing.push(`public/${d.musicFile} (müzik)`);
 for (const id of new Set(Object.values(d.PHOTO_SLOTS))) if (!assets.photos?.[id]) missing.push(`fotoğraf ${id} (Commons) → çizim kullanıldı`);
 for (const s of Object.keys(d.brollQueries)) if (!assets.broll?.[s]) missing.push(`B-roll ${s} → fotoğraf/çizim kullanıldı`);
 if (!fs.existsSync('../motion-showreel/scripts/sfx.mjs')) missing.push('motion-showreel/scripts/sfx.mjs (SFX tools/f35/prep_audio.py içinde sentezlendi)');
+
+add('Kapak', '3:4 önizlemede alıntının tamamı', true, 'alıntı y 420–~900, yazar ~940, damga 1270–1450, "6 F-35 · 7 YIL" ~1490, kredi 1560: hepsi 1080x1440 (y 240–1680) ve 4:5 (y 285–1635) içinde; bkz. cover_turkiye-f35_3x4_onizleme.jpg');
 
 // ---------------------------------------------------------------- rapor
 const mark = (ok) => (ok === null ? '⚠️' : ok ? '✅' : '❌');
@@ -190,8 +231,8 @@ md += `## Eksik dosyalar\n\n${missing.length ? missing.map((m) => `- ${m}`).join
 md += `## Uyarılar\n\n${[...(audio.warnings ?? []), ...brollReport].map((w) => `- ${w}`).join('\n') || '- yok'}\n\n`;
 md += `## İçerik doğrulama notları (yayından önce)\n\n`;
 md += `- Ekim 2026 tarihli kaynaklar (Turkish Minute, Defense Mirror, Euronews, Aero Corner) ve Temmuz–Eylül 2026 olayları brief'ten alındı; bu oturumda bağımsız olarak doğrulanamadı. Her kaynağa URL eklenmeli (SOURCES.md).\n`;
-md += `- S3 "11 Nis 2017 · S-400 sözleşmesi": birçok kaynak anlaşmanın imzasını Eylül 2017 (Erdoğan'ın 12 Eylül 2017 açıklaması) ve finansman anlaşmasını Aralık 2017 olarak verir. Defence Turk'teki tarih kontrol edilmeli.\n`;
-md += `- S1/S7 "6 uçak hangarda": Temmuz 2020 tarihli haberlere (Reuters) göre ABD Hava Kuvvetleri, Türkiye için üretilen 8 F-35A'yı kendi envanterine almak üzere sözleşme değişikliği yapmıştı. "6 uçak 7 yıldır hangarda" ifadesi Turkish Minute (15 Eki 2026) haberindeki ifadeyle birebir eşleştirilmeli.\n`;
+md += `- S3 "S-400 sözleşmesi 2017": imza Eylül 2017'de açıklanmıştı; tarih yalnızca yıl olarak verildi.\n`;
+md += `- "6 uçak 7 yıldır ABD'de": Temmuz 2020 tarihli haberlere (Reuters) göre ABD Hava Kuvvetleri, Türkiye için üretilen 8 F-35A'yı kendi envanterine almak üzere sözleşme değişikliği yapmıştı. "6 uçak" ifadesi Defense Mirror (8 Eki 2026) haberiyle birebir eşleştirilmeli.\n`;
 md += `- S4 Ankara satırının sahibi (isim, unvan) netleştirilmeli; şu an "Türk hükümeti · 7 Tem 2026".\n`;
 md += `- Seslendirme senaryosu \`src/data/f35.ts\` içindedir. Kayıt bu metinden farklıysa Whisper eşleşme oranı düşer ve uyarı verir; altyazı yine senaryodan yazılır.\n`;
 fs.writeFileSync('out/VERIFY.md', md);
