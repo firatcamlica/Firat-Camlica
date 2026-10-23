@@ -1,3 +1,28 @@
 {
-  "photos": []
+  "photos": [
+    {
+      "id": "f35a-usaf",
+      "title": "File:F35A Lightning IIs arrive at Misawa Air Base (9588487).jpg",
+      "author": "U.S. Air Force photo by Senior Airman Patrick Boyle",
+      "license": "Public domain",
+      "licenseUrl": "https://creativecommons.org/publicdomain/mark/1.0/",
+      "source": "https://commons.wikimedia.org/wiki/File:F35A_Lightning_IIs_arrive_at_Misawa_Air_Base_(9588487).jpg",
+      "place": "",
+      "date": "Taken on 2",
+      "downloaded": "2026-10-23",
+      "faceCheck": "yok"
+    },
+    {
+      "id": "s400-milru",
+      "title": "File:S-400 Triumf (27102989027).jpg",
+      "author": "Dmitriy Fomin from Moscow, Russia",
+      "license": "CC BY 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+      "source": "https://commons.wikimedia.org/wiki/File:S-400_Triumf_(27102989027).jpg",
+      "place": "",
+      "date": "2018-05-06",
+      "downloaded": "2026-10-23",
+      "faceCheck": "küçük yüz(ler) %3"
+    }
+  ]
 }

@@ -2,7 +2,25 @@
   "photos": {
     "f35a-usaf": {
       "file": "photos/f35a-usaf.jpg",
-      "credit": "Foto: Senior Airman Patrick Boyle (ABD Hava Kuvvetleri) / kamu malı"
+      "credit": "Foto: Senior Airman Patrick Boyle (ABD Hava Kuvvetleri) / kamu malı",
+      "fg": "depth/f35a-usaf_fg.png",
+      "intensity": 0.5,
+      "depthStats": {
+        "area": 0.282,
+        "borderTouch": 0.419,
+        "edge": 0.0178
+      }
+    },
+    "s400-milru": {
+      "file": "photos/s400-milru.jpg",
+      "credit": "Foto: Dmitriy Fomin from Moscow, Russia / CC BY 2.0",
+      "fg": "depth/s400-milru_fg.png",
+      "intensity": 0.5,
+      "depthStats": {
+        "area": 0.283,
+        "borderTouch": 0.329,
+        "edge": 0.0107
+      }
     }
   },
   "broll": {},
