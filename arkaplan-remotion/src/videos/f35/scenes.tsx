@@ -87,7 +87,7 @@ export const S1: React.FC = () => {
           </div>
         </div>
       ) : null}
-      <div style={{position: 'absolute', left: CONTENT.left, top: 1130, width: CONTENT.width, display: 'flex', justifyContent: 'center'}}>
+      <div style={{position: 'absolute', left: CONTENT.left, top: 1175, width: CONTENT.width, display: 'flex', justifyContent: 'center'}}>
         <Stamp text={TEXT.stamps.wait} tone="wait" at={stamp} rotate={-4} size={72} />
       </div>
       <SourceLine text={src('S1')} />

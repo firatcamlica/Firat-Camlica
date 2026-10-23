@@ -11,3 +11,4 @@ public/broll/*.mp4
 public/photos/*.jpg
 public/depth/
 __pycache__/
+public/photos/candidates/
