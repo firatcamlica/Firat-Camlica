@@ -47,3 +47,12 @@ export const RuleCard: React.FC<{kicker: string; text: string; footer?: string; 
     </div>
   );
 };
+
+/** Anahtar ikonu (S8: iki taraf, eşit boyut) */
+export const KeyIcon: React.FC<{size: number; color?: string}> = ({size, color = COLORS.cream}) => (
+  <svg width={size} height={size} viewBox="0 0 64 64">
+    <circle cx={18} cy={32} r={12} fill="none" stroke={color} strokeWidth={5} />
+    <circle cx={18} cy={32} r={4} fill={color} />
+    <path d="M30 32 H58 M50 32 V42 M42 32 V39" stroke={color} strokeWidth={5} strokeLinecap="round" fill="none" />
+  </svg>
+);

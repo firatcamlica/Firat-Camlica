@@ -12,6 +12,8 @@ import {LockIcon} from './Lock';
 type LonLat = [number, number];
 export type MapArrow = {from: LonLat; to: LonLat; frame: number; endLabel?: string; bend?: number; /** etiketin uca göre konumu (px) */ labelOffset?: [number, number]};
 export type MapLink = {from: LonLat; to: LonLat; frame: number; icon?: 'lock'};
+/** Harita üstü serbest öğe (ör. durum damgası); `at` koordinatına göre konumlanır */
+export type MapMarker = {at: LonLat; frame: number; node: React.ReactNode; dx?: number; dy?: number};
 export type MapLabel = {at: LonLat; text: string; frame: number; dx?: number; dy?: number; strong?: boolean; dot?: boolean};
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
@@ -30,10 +32,11 @@ export const RegionMap: React.FC<{
   arrows?: MapArrow[];
   links?: MapLink[];
   labels?: MapLabel[];
+  markers?: MapMarker[];
   /** yavaş itiş (0..1 arası ölçek artışı, sahne boyunca) */
   push?: number;
   pushFrames?: number;
-}> = ({width, height, bounds, highlight = [], outline = [], arrows = [], links = [], labels = [], push = 0.04, pushFrames = 300}) => {
+}> = ({width, height, bounds, highlight = [], outline = [], arrows = [], links = [], labels = [], markers = [], push = 0.04, pushFrames = 300}) => {
   const f = useCurrentFrame();
   const projection = useMemo(
     () =>
@@ -152,6 +155,15 @@ export const RegionMap: React.FC<{
               }}
             >
               {ar.endLabel}
+            </div>
+          );
+        })}
+        {markers.map((mk, i) => {
+          if (f < mk.frame) return null;
+          const p = P(mk.at);
+          return (
+            <div key={`m${i}`} style={{position: 'absolute', left: p[0] + (mk.dx ?? 0), top: p[1] + (mk.dy ?? 0)}}>
+              {mk.node}
             </div>
           );
         })}

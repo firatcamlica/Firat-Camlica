@@ -17,6 +17,14 @@ export const COLORS = {
 export const FONTS = {
   sans: '"Bricolage Grotesque", system-ui, sans-serif',
   mono: '"JetBrains Mono", ui-monospace, monospace',
+  /** Edebi alıntılar (epigraf): italik */
+  serif: '"Playfair Display", Georgia, serif',
+};
+
+/** Durum göstergeleri için ek renkler (yalnızca damga, ilerleme ve durum etiketleri) */
+export const STATUS = {
+  wait: '#F2A900',
+  block: '#E1000F',
 };
 
 export type ThemeName = 'light' | 'dark';

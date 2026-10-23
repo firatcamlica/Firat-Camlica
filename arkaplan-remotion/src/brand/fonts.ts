@@ -6,7 +6,7 @@ const LATIN =
 const LATIN_EXT =
   'U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF';
 
-const FACES: [family: string, file: string, weight: string, range: string][] = [
+const FACES: [family: string, file: string, weight: string, range: string, style?: string][] = [
   ['Bricolage Grotesque', 'bricolage-grotesque-latin-500', '500', LATIN],
   ['Bricolage Grotesque', 'bricolage-grotesque-latin-ext-500', '500', LATIN_EXT],
   ['Bricolage Grotesque', 'bricolage-grotesque-latin-800', '800', LATIN],
@@ -15,15 +15,17 @@ const FACES: [family: string, file: string, weight: string, range: string][] = [
   ['JetBrains Mono', 'jetbrains-mono-latin-ext-500', '500', LATIN_EXT],
   ['JetBrains Mono', 'jetbrains-mono-latin-700', '700', LATIN],
   ['JetBrains Mono', 'jetbrains-mono-latin-ext-700', '700', LATIN_EXT],
+  ['Playfair Display', 'playfair-display-latin-500-italic', '500', LATIN, 'italic'],
+  ['Playfair Display', 'playfair-display-latin-ext-500-italic', '500', LATIN_EXT, 'italic'],
 ];
 
-/** Bricolage Grotesque (500, 800) ve JetBrains Mono (500, 700); latin + latin-ext, Türkçe karakterler dahil. */
+/** Bricolage Grotesque (500, 800), JetBrains Mono (500, 700), Playfair Display italik 500 (alıntılar); latin + latin-ext. */
 export const useBrandFonts = () => {
   const [handle] = useState(() => delayRender('brand-fonts'));
   useEffect(() => {
     Promise.all(
-      FACES.map(([family, file, weight, unicodeRange]) =>
-        new FontFace(family, `url(${staticFile(`fonts/${file}-normal.woff2`)})`, {weight, unicodeRange}).load(),
+      FACES.map(([family, file, weight, unicodeRange, style]) =>
+        new FontFace(family, `url(${staticFile(`fonts/${style ? file : `${file}-normal`}.woff2`)})`, {weight, unicodeRange, style: style ?? 'normal'}).load(),
       ),
     )
       .then((faces) => {
@@ -33,6 +35,7 @@ export const useBrandFonts = () => {
           document.fonts.load('500 80px "Bricolage Grotesque"', 'İıŞşĞğÜüÖöÇç'),
           document.fonts.load('500 30px "JetBrains Mono"', 'İıŞşĞğÜüÖöÇç'),
           document.fonts.load('700 30px "JetBrains Mono"', 'İıŞşĞğÜüÖöÇç'),
+          document.fonts.load('italic 500 80px "Playfair Display"', 'İıŞşĞğÜüÖöÇç'),
         ]);
       })
       .then(() => continueRender(handle))
