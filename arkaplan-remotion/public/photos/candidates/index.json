@@ -100,42 +100,18 @@
  "s400-milru": [
   {
    "k": 0,
-   "title": "File:Space Shuttle Columbia launching.jpg",
-   "license": "Public domain",
-   "author": "NASA",
+   "title": "File:S-400 Triumf (27102989027).jpg",
+   "license": "CC BY 2.0",
+   "author": "Dmitriy Fomin from Moscow, Russia",
    "size": [
-    6084,
-    6084
+    3002,
+    1998
    ],
-   "query": "S-400 launcher",
-   "source": "https://commons.wikimedia.org/wiki/File:Space_Shuttle_Columbia_launching.jpg"
+   "query": "\"S-400\" Triumf",
+   "source": "https://commons.wikimedia.org/wiki/File:S-400_Triumf_(27102989027).jpg"
   },
   {
    "k": 1,
-   "title": "File:Space shuttles Atlantis (STS-125) and Endeavour (STS-400) on launch pads.jpg",
-   "license": "Public domain",
-   "author": "NASA/Troy Cryder",
-   "size": [
-    2968,
-    1950
-   ],
-   "query": "S-400 launcher",
-   "source": "https://commons.wikimedia.org/wiki/File:Space_shuttles_Atlantis_(STS-125)_and_Endeavour_(STS-400)_on_launch_pads.jpg"
-  },
-  {
-   "k": 2,
-   "title": "File:Moscow 2012 Victory Day Parade Rehearsal, S-400, Russia.jpg",
-   "license": "CC BY 4.0",
-   "author": "Vyacheslav Argenberg",
-   "size": [
-    4912,
-    3264
-   ],
-   "query": "S-400 launcher",
-   "source": "https://commons.wikimedia.org/wiki/File:Moscow_2012_Victory_Day_Parade_Rehearsal,_S-400,_Russia.jpg"
-  },
-  {
-   "k": 3,
    "title": "File:S-400 Triumf launch vehicle.JPG",
    "license": "CC BY 3.0",
    "author": "Droni4ch",
@@ -143,56 +119,68 @@
     3204,
     1003
    ],
-   "query": "S-400 launcher",
+   "query": "\"S-400\" Triumf",
    "source": "https://commons.wikimedia.org/wiki/File:S-400_Triumf_launch_vehicle.JPG"
   },
   {
-   "k": 4,
-   "title": "File:Atlantis (STS-125) and Endeavour (STS-400) on launch pads.jpg",
+   "k": 2,
+   "title": "File:Russian S-400 Triumf SAMS in Moscow.jpg",
    "license": "Public domain",
-   "author": "NASA/Troy Cryder",
+   "author": "U.S. Navy photo by Mass Communication Specialist 1st Class (SW) Edward Vasquez",
    "size": [
-    2946,
-    1919
+    2100,
+    1500
    ],
-   "query": "S-400 launcher",
-   "source": "https://commons.wikimedia.org/wiki/File:Atlantis_(STS-125)_and_Endeavour_(STS-400)_on_launch_pads.jpg"
+   "query": "\"S-400\" Triumf",
+   "source": "https://commons.wikimedia.org/wiki/File:Russian_S-400_Triumf_SAMS_in_Moscow.jpg"
+  },
+  {
+   "k": 3,
+   "title": "File:Moscow 2012 Victory Day Parade Rehearsal, S-400, Russia.jpg",
+   "license": "CC BY 4.0",
+   "author": "Vyacheslav Argenberg",
+   "size": [
+    4912,
+    3264
+   ],
+   "query": "\"S-400\" Triumf",
+   "source": "https://commons.wikimedia.org/wiki/File:Moscow_2012_Victory_Day_Parade_Rehearsal,_S-400,_Russia.jpg"
+  },
+  {
+   "k": 4,
+   "title": "File:Moscow 2012 Victory Day Parade Rehearsal, Military Vehicles, Night, Russia.jpg",
+   "license": "CC BY 4.0",
+   "author": "Vyacheslav Argenberg",
+   "size": [
+    4912,
+    3264
+   ],
+   "query": "\"S-400\" Triumf",
+   "source": "https://commons.wikimedia.org/wiki/File:Moscow_2012_Victory_Day_Parade_Rehearsal,_Military_Vehicles,_Night,_Russia.jpg"
   },
   {
    "k": 5,
-   "title": "File:Space shuttles Atlantis (STS-125) and Endeavour (STS-400) on launch pads edit.jpg",
-   "license": "Public domain",
-   "author": "NASA/Troy Cryder",
+   "title": "File:S-400 on Red Square 2011.jpg",
+   "license": "CC BY 4.0",
+   "author": "Сергей Гунеев",
    "size": [
-    2928,
-    1909
+    2000,
+    1322
    ],
-   "query": "S-400 launcher",
-   "source": "https://commons.wikimedia.org/wiki/File:Space_shuttles_Atlantis_(STS-125)_and_Endeavour_(STS-400)_on_launch_pads_edit.jpg"
+   "query": "S-400 SAM",
+   "source": "https://commons.wikimedia.org/wiki/File:S-400_on_Red_Square_2011.jpg"
   },
   {
    "k": 6,
-   "title": "File:Mercedes-Benz S-Klasse (W222) S 400 4MATIC (2015) (52598332853).jpg",
-   "license": "CC BY 2.0",
-   "author": "Charles from Port Chester, New York",
+   "title": "File:S-400 SAMS during the May parade 2010.jpeg",
+   "license": "CC BY 4.0",
+   "author": "Photo: RIA Novosti",
    "size": [
-    5681,
-    3728
+    3474,
+    2231
    ],
-   "query": "S-400 launcher",
-   "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_S-Klasse_(W222)_S_400_4MATIC_(2015)_(52598332853).jpg"
-  },
-  {
-   "k": 7,
-   "title": "File:Mercedes-Benz S-Klasse (W222) S 400 4MATIC (2015) (52598075569).jpg",
-   "license": "CC BY 2.0",
-   "author": "Charles from Port Chester, New York",
-   "size": [
-    5089,
-    3559
-   ],
-   "query": "S-400 launcher",
-   "source": "https://commons.wikimedia.org/wiki/File:Mercedes-Benz_S-Klasse_(W222)_S_400_4MATIC_(2015)_(52598075569).jpg"
+   "query": "S-400 SAM",
+   "source": "https://commons.wikimedia.org/wiki/File:S-400_SAMS_during_the_May_parade_2010.jpeg"
   }
  ]
 }
