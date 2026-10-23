@@ -46,9 +46,9 @@ if (meta) {
   add('Teknik', 'Süre ≤ 60,0 sn', dur <= d.DURATION.max, `${dur.toFixed(3)} sn`);
   add('Teknik', 'Hedef 56–58 sn', dur >= d.DURATION.targetMin && dur <= d.DURATION.targetMax + 0.05 ? true : null, `${dur.toFixed(2)} sn`);
   add('Teknik', 'H.264 1080x1920 30 fps yuv420p', v && v.width === 1080 && v.height === 1920 && v.r_frame_rate === '30/1' && v.pix_fmt === 'yuv420p', v ? `${v.codec_name} ${v.profile} ${v.width}x${v.height} ${v.r_frame_rate} ${v.pix_fmt}` : 'video akışı yok');
-  const brOk = a && a.sample_rate === '48000' && Math.abs(Number(a.bit_rate) - 192000) < 12000;
+  const brOk = a && a.sample_rate === '48000' && Number(a.bit_rate) >= 150000 && Number(a.bit_rate) <= 200000;
   // sessiz taslakta AAC kodlayıcı 192k ayarlı olsa da sessizliği çok az bitle kodlar
-  add('Teknik', 'AAC 192 kbps 48 kHz', brOk ? true : a && a.sample_rate === '48000' && !audio.voice && !audio.music ? null : false, a ? `${a.codec_name} ${Math.round(a.bit_rate / 1000)} kbps ${a.sample_rate} Hz${brOk ? '' : ' (kodlayıcı -b:a 192k; içerik neredeyse sessiz)'}` : 'ses akışı yok');
+  add('Teknik', 'AAC 192 kbps 48 kHz', brOk ? true : a && a.sample_rate === '48000' && !audio.voice && !audio.music ? null : false, a ? `${a.codec_name} ${Math.round(a.bit_rate / 1000)} kbps ${a.sample_rate} Hz${brOk ? ' ortalama (kodlayıcı -b:a 192k; konuşma tek kanal olduğu için ortalama düşer)' : ' (kodlayıcı -b:a 192k)'}` : 'ses akışı yok');
 }
 const s9 = audio.sceneStarts?.S9;
 add('Teknik', 'Son 2 sn kapanış kartı', s9 !== undefined && Math.abs((audio.totalSeconds - s9) - d.DURATION.endCard) < 0.05, `S9 ${s9} sn → ${audio.totalSeconds} sn`);

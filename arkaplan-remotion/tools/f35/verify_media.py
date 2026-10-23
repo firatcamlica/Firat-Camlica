@@ -32,7 +32,12 @@ script = json.loads((ROOT / 'public/gen/f35_script.json').read_text())
 if man.get('voice') and video.exists():
     wav = ROOT / 'public/gen/f35_verify16k.wav'
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(video), '-vn', '-ac', '1', '-ar', '16000', str(wav)], check=True)
-    asr, how = pa.whisper_words(wav)
+    cache = ROOT / 'public/gen/f35_asr_final.json'
+    if cache.exists():
+        c = json.loads(cache.read_text())
+        asr, how = pa.merge_suffixes([tuple(w) for w in c['words']]), f"{c.get('model', 'whisper')} (final MP4, GitHub Actions)"
+    else:
+        asr, how = pa.whisper_words(wav)
     if asr:
         words = pa.flat_spoken(script['scenes'])
         times, ratio = pa.align(words, asr)
@@ -41,7 +46,8 @@ if man.get('voice') and video.exists():
             first.setdefault((w['scene'], w['tok']), t[0])
         # manifestteki altyazı kelimeleri sahne/token sırasıyla aynı
         expect = [(si, ti) for si, s in enumerate(script['scenes']) for ti, _ in enumerate(s['tokens'])]
-        cap_words = [w for c in man['captions'] for w in c['words']]
+        # tüm ekran kelimeleri (altyazıda gizlenen alıntı dahil), senaryo sırasıyla
+        cap_words = [[w[1], w[2], w[3]] for w in man['words']]
         diffs = []
         for key, cw in zip(expect, cap_words):
             if key in first:

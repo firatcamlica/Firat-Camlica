@@ -27,7 +27,6 @@ jobs:
           python-version: '3.11'
       - name: Bağımlılıklar
         run: |
-          sudo apt-get update -q && sudo apt-get install -y -q ffmpeg
           npm ci --ignore-scripts
           pip install numpy pillow "opencv-python-headless<4.12"
       - name: Veri

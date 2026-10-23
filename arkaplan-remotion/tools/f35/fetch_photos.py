@@ -229,7 +229,11 @@ def main():
             import subprocess
             tmp = out.with_suffix('.src')
             tmp.write_bytes(data)
-            subprocess.run(['ffmpeg', '-v', 'error', '-y', '-i', str(tmp), '-vf', "scale='min(2400,iw)':-2", '-q:v', '2', str(out)], check=True)
+            from PIL import Image
+            im = Image.open(tmp).convert('RGB')
+            if im.width > 3200:
+                im = im.resize((3200, round(im.height * 3200 / im.width)), Image.LANCZOS)
+            im.save(out, quality=92)
             tmp.unlink()
             credits['photos'] = [c for c in credits['photos'] if c.get('id') != pid] + [rec]
         entry = assets['photos'].get(pid, {})
