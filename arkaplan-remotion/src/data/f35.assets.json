@@ -1,0 +1,5 @@
+{
+  "photos": {},
+  "broll": {},
+  "note": "tools/f35/fetch_photos.py, fetch_broll.py ve depth.py tarafından yazılır. Boşsa sahneler vektör çizime döner."
+}

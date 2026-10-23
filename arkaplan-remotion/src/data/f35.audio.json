@@ -1,0 +1,1035 @@
+{
+ "generated": true,
+ "voice": null,
+ "music": null,
+ "master": "gen/f35_master.wav",
+ "wordTiming": "tahmini (seslendirme yok)",
+ "bpm": null,
+ "beatOffset": 0.0,
+ "bpmMethod": null,
+ "speech": [],
+ "sceneStarts": {
+  "S1": 0.0,
+  "S2": 4.03,
+  "S3": 10.53,
+  "S4": 18.03,
+  "S5": 25.03,
+  "S6": 32.03,
+  "S7": 43.03,
+  "S8": 51.03,
+  "S9": 55.967
+ },
+ "totalSeconds": 57.967,
+ "cues": {
+  "S2.parts": 6.282,
+  "S2.paid": 8.712,
+  "S3.e1": 10.65,
+  "S3.e2": 13.335,
+  "S3.fiveDays": 15.54,
+  "S4.footer": 23.505,
+  "S5.rule": 29.47,
+  "S6.cardA": 32.15,
+  "S6.cardB": 37.483,
+  "S6.cardC": 39.817,
+  "S7.saudi": 43.15,
+  "S7.turkey": 48.189,
+  "S8.question": 54.717
+ },
+ "captions": [
+  {
+   "start": 0.0,
+   "end": 1.651,
+   "text": "Türkiye için üretilen altı F-35,",
+   "words": [
+    [
+     "Türkiye",
+     0.0,
+     0.313
+    ],
+    [
+     "için",
+     0.348,
+     0.543
+    ],
+    [
+     "üretilen",
+     0.565,
+     0.917
+    ],
+    [
+     "altı",
+     0.956,
+     1.151
+    ],
+    [
+     "F-35,",
+     1.173,
+     1.603
+    ]
+   ]
+  },
+  {
+   "start": 1.651,
+   "end": 2.651,
+   "text": "yedi yıldır ABD'de",
+   "words": [
+    [
+     "yedi",
+     1.651,
+     1.847
+    ],
+    [
+     "yıldır",
+     1.868,
+     2.142
+    ],
+    [
+     "ABD'de",
+     2.173,
+     2.603
+    ]
+   ]
+  },
+  {
+   "start": 2.651,
+   "end": 3.857,
+   "text": "bir hangarda bekliyor.",
+   "words": [
+    [
+     "bir",
+     2.651,
+     2.807
+    ],
+    [
+     "hangarda",
+     2.824,
+     3.176
+    ],
+    [
+     "bekliyor.",
+     3.215,
+     3.607
+    ]
+   ]
+  },
+  {
+   "start": 4.15,
+   "end": 5.737,
+   "text": "Türkiye 2002'den beri programın",
+   "words": [
+    [
+     "Türkiye",
+     4.15,
+     4.507
+    ],
+    [
+     "2002'den",
+     4.547,
+     4.948
+    ],
+    [
+     "beri",
+     4.993,
+     5.216
+    ],
+    [
+     "programın",
+     5.241,
+     5.687
+    ]
+   ]
+  },
+  {
+   "start": 5.737,
+   "end": 7.274,
+   "text": "ortağıydı: 900'den fazla parça",
+   "words": [
+    [
+     "ortağıydı:",
+     5.737,
+     6.228
+    ],
+    [
+     "900'den",
+     6.282,
+     6.639
+    ],
+    [
+     "fazla",
+     6.679,
+     6.947
+    ],
+    [
+     "parça",
+     6.976,
+     7.244
+    ]
+   ]
+  },
+  {
+   "start": 7.274,
+   "end": 8.712,
+   "text": "üretiyordu, 1,4 milyar dolar",
+   "words": [
+    [
+     "üretiyordu,",
+     7.274,
+     7.81
+    ],
+    [
+     "1,4",
+     7.869,
+     8.048
+    ],
+    [
+     "milyar",
+     8.067,
+     8.38
+    ],
+    [
+     "dolar",
+     8.414,
+     8.682
+    ]
+   ]
+  },
+  {
+   "start": 8.712,
+   "end": 10.336,
+   "text": "ödedi, 100 uçak planlıyordu.",
+   "words": [
+    [
+     "ödedi,",
+     8.712,
+     9.024
+    ],
+    [
+     "100",
+     9.059,
+     9.238
+    ],
+    [
+     "uçak",
+     9.257,
+     9.481
+    ],
+    [
+     "planlıyordu.",
+     9.505,
+     10.086
+    ]
+   ]
+  },
+  {
+   "start": 10.65,
+   "end": 11.801,
+   "text": "Nisan 2017'de Rusya ile",
+   "words": [
+    [
+     "Nisan",
+     10.65,
+     10.909
+    ],
+    [
+     "2017'de",
+     10.938,
+     11.283
+    ],
+    [
+     "Rusya",
+     11.321,
+     11.58
+    ],
+    [
+     "ile",
+     11.609,
+     11.782
+    ]
+   ]
+  },
+  {
+   "start": 11.801,
+   "end": 13.335,
+   "text": "S-400 sözleşmesi imzalandı.",
+   "words": [
+    [
+     "S-400",
+     11.801,
+     12.232
+    ],
+    [
+     "sözleşmesi",
+     12.28,
+     12.755
+    ],
+    [
+     "imzalandı.",
+     12.808,
+     13.282
+    ]
+   ]
+  },
+  {
+   "start": 13.335,
+   "end": 14.39,
+   "text": "12 Temmuz 2019'da ilk",
+   "words": [
+    [
+     "12",
+     13.335,
+     13.464
+    ],
+    [
+     "Temmuz",
+     13.479,
+     13.781
+    ],
+    [
+     "2019'da",
+     13.814,
+     14.16
+    ],
+    [
+     "ilk",
+     14.198,
+     14.371
+    ]
+   ]
+  },
+  {
+   "start": 14.39,
+   "end": 15.54,
+   "text": "parçalar Mürted'e indi.",
+   "words": [
+    [
+     "parçalar",
+     14.39,
+     14.778
+    ],
+    [
+     "Mürted'e",
+     14.821,
+     15.21
+    ],
+    [
+     "indi.",
+     15.253,
+     15.512
+    ]
+   ]
+  },
+  {
+   "start": 15.54,
+   "end": 16.595,
+   "text": "Beş gün sonra Türkiye",
+   "words": [
+    [
+     "Beş",
+     15.54,
+     15.713
+    ],
+    [
+     "gün",
+     15.732,
+     15.905
+    ],
+    [
+     "sonra",
+     15.924,
+     16.183
+    ],
+    [
+     "Türkiye",
+     16.212,
+     16.557
+    ]
+   ]
+  },
+  {
+   "start": 16.595,
+   "end": 17.847,
+   "text": "programdan çıkarıldı.",
+   "words": [
+    [
+     "programdan",
+     16.595,
+     17.07
+    ],
+    [
+     "çıkarıldı.",
+     17.123,
+     17.597
+    ]
+   ]
+  },
+  {
+   "start": 18.15,
+   "end": 19.923,
+   "text": "Washington'a göre S-400 radarı, F-35'in",
+   "words": [
+    [
+     "Washington'a",
+     18.15,
+     18.582
+    ],
+    [
+     "göre",
+     18.63,
+     18.796
+    ],
+    [
+     "S-400",
+     18.815,
+     19.147
+    ],
+    [
+     "radarı,",
+     19.184,
+     19.45
+    ],
+    [
+     "F-35'in",
+     19.48,
+     19.878
+    ]
+   ]
+  },
+  {
+   "start": 19.923,
+   "end": 20.698,
+   "text": "görünmezlik verisini",
+   "words": [
+    [
+     "görünmezlik",
+     19.923,
+     20.322
+    ],
+    [
+     "verisini",
+     20.366,
+     20.665
+    ]
+   ]
+  },
+  {
+   "start": 20.698,
+   "end": 21.511,
+   "text": "Rusya'ya taşıyabilir.",
+   "words": [
+    [
+     "Rusya'ya",
+     20.698,
+     20.997
+    ],
+    [
+     "taşıyabilir.",
+     21.031,
+     21.463
+    ]
+   ]
+  },
+  {
+   "start": 21.511,
+   "end": 22.508,
+   "text": "Ankara'ya göre sistem NATO",
+   "words": [
+    [
+     "Ankara'ya",
+     21.511,
+     21.843
+    ],
+    [
+     "göre",
+     21.88,
+     22.046
+    ],
+    [
+     "sistem",
+     22.065,
+     22.297
+    ],
+    [
+     "NATO",
+     22.323,
+     22.489
+    ]
+   ]
+  },
+  {
+   "start": 22.508,
+   "end": 23.505,
+   "text": "ağına entegre edilmeyecek.",
+   "words": [
+    [
+     "ağına",
+     22.508,
+     22.707
+    ],
+    [
+     "entegre",
+     22.73,
+     22.995
+    ],
+    [
+     "edilmeyecek.",
+     23.025,
+     23.457
+    ]
+   ]
+  },
+  {
+   "start": 23.505,
+   "end": 24.874,
+   "text": "Aralık 2020'de yaptırım geldi.",
+   "words": [
+    [
+     "Aralık",
+     23.505,
+     23.738
+    ],
+    [
+     "2020'de",
+     23.764,
+     24.03
+    ],
+    [
+     "yaptırım",
+     24.059,
+     24.358
+    ],
+    [
+     "geldi.",
+     24.391,
+     24.624
+    ]
+   ]
+  },
+  {
+   "start": 25.15,
+   "end": 26.563,
+   "text": "7 Temmuz'da ABD Başkanı Trump,",
+   "words": [
+    [
+     "7",
+     25.15,
+     25.223
+    ],
+    [
+     "Temmuz'da",
+     25.231,
+     25.594
+    ],
+    [
+     "ABD",
+     25.634,
+     25.925
+    ],
+    [
+     "Başkanı",
+     25.957,
+     26.248
+    ],
+    [
+     "Trump,",
+     26.28,
+     26.535
+    ]
+   ]
+  },
+  {
+   "start": 26.563,
+   "end": 27.653,
+   "text": "yaptırımın kalkabileceğini",
+   "words": [
+    [
+     "yaptırımın",
+     26.563,
+     26.963
+    ],
+    [
+     "kalkabileceğini",
+     27.007,
+     27.589
+    ]
+   ]
+  },
+  {
+   "start": 27.653,
+   "end": 28.097,
+   "text": "ve satışın",
+   "words": [
+    [
+     "ve",
+     27.653,
+     27.762
+    ],
+    [
+     "satışın",
+     27.774,
+     28.065
+    ]
+   ]
+  },
+  {
+   "start": 28.097,
+   "end": 29.47,
+   "text": "değerlendirilebileceğini söyledi.",
+   "words": [
+    [
+     "değerlendirilebileceğini",
+     28.097,
+     29.006
+    ],
+    [
+     "söyledi.",
+     29.107,
+     29.434
+    ]
+   ]
+  },
+  {
+   "start": 29.47,
+   "end": 30.075,
+   "text": "Ama yasa açık:",
+   "words": [
+    [
+     "Ama",
+     29.47,
+     29.615
+    ],
+    [
+     "yasa",
+     29.631,
+     29.813
+    ],
+    [
+     "açık:",
+     29.833,
+     30.051
+    ]
+   ]
+  },
+  {
+   "start": 30.075,
+   "end": 31.88,
+   "text": "S-400 Türkiye'deyse F-35 yok.",
+   "words": [
+    [
+     "S-400",
+     30.075,
+     30.439
+    ],
+    [
+     "Türkiye'deyse",
+     30.479,
+     30.988
+    ],
+    [
+     "F-35",
+     31.044,
+     31.408
+    ],
+    [
+     "yok.",
+     31.448,
+     31.63
+    ]
+   ]
+  },
+  {
+   "start": 32.15,
+   "end": 33.428,
+   "text": "Temmuz'da Türk basını,",
+   "words": [
+    [
+     "Temmuz'da",
+     32.15,
+     32.65
+    ],
+    [
+     "Türk",
+     32.706,
+     32.956
+    ],
+    [
+     "basını,",
+     32.983,
+     33.383
+    ]
+   ]
+  },
+  {
+   "start": 33.428,
+   "end": 34.817,
+   "text": "S-400'lerin Körfez'e",
+   "words": [
+    [
+     "S-400'lerin",
+     33.428,
+     34.228
+    ],
+    [
+     "Körfez'e",
+     34.317,
+     34.767
+    ]
+   ]
+  },
+  {
+   "start": 34.817,
+   "end": 35.928,
+   "text": "satılacağını yazdı;",
+   "words": [
+    [
+     "satılacağını",
+     34.817,
+     35.467
+    ],
+    [
+     "yazdı;",
+     35.539,
+     35.889
+    ]
+   ]
+  },
+  {
+   "start": 35.928,
+   "end": 37.483,
+   "text": "hiçbir hükümet doğrulamadı.",
+   "words": [
+    [
+     "hiçbir",
+     35.928,
+     36.278
+    ],
+    [
+     "hükümet",
+     36.317,
+     36.717
+    ],
+    [
+     "doğrulamadı.",
+     36.761,
+     37.411
+    ]
+   ]
+  },
+  {
+   "start": 37.483,
+   "end": 38.428,
+   "text": "Katar 2018'de bu",
+   "words": [
+    [
+     "Katar",
+     37.483,
+     37.783
+    ],
+    [
+     "2018'de",
+     37.817,
+     38.217
+    ],
+    [
+     "bu",
+     38.261,
+     38.411
+    ]
+   ]
+  },
+  {
+   "start": 38.428,
+   "end": 39.817,
+   "text": "sistemi almak istemişti.",
+   "words": [
+    [
+     "sistemi",
+     38.428,
+     38.828
+    ],
+    [
+     "almak",
+     38.872,
+     39.172
+    ],
+    [
+     "istemişti.",
+     39.206,
+     39.756
+    ]
+   ]
+  },
+  {
+   "start": 39.817,
+   "end": 41.261,
+   "text": "Lavrov'a göre devir ancak",
+   "words": [
+    [
+     "Lavrov'a",
+     39.817,
+     40.267
+    ],
+    [
+     "göre",
+     40.317,
+     40.567
+    ],
+    [
+     "devir",
+     40.594,
+     40.894
+    ],
+    [
+     "ancak",
+     40.928,
+     41.228
+    ]
+   ]
+  },
+  {
+   "start": 41.261,
+   "end": 42.867,
+   "text": "Rusya'nın onayıyla olur.",
+   "words": [
+    [
+     "Rusya'nın",
+     41.261,
+     41.761
+    ],
+    [
+     "onayıyla",
+     41.817,
+     42.267
+    ],
+    [
+     "olur.",
+     42.317,
+     42.617
+    ]
+   ]
+  },
+  {
+   "start": 43.15,
+   "end": 46.021,
+   "text": "Eylül'de ABD, Suudi Arabistan'a 48 F-35",
+   "words": [
+    [
+     "Eylül'de",
+     43.15,
+     43.625
+    ],
+    [
+     "ABD,",
+     43.677,
+     44.152
+    ],
+    [
+     "Suudi",
+     44.205,
+     44.521
+    ],
+    [
+     "Arabistan'a",
+     44.556,
+     45.189
+    ],
+    [
+     "48",
+     45.259,
+     45.418
+    ],
+    [
+     "F-35",
+     45.435,
+     45.962
+    ]
+   ]
+  },
+  {
+   "start": 46.021,
+   "end": 48.189,
+   "text": "satışını onayladı; Kongre inceliyor.",
+   "words": [
+    [
+     "satışını",
+     46.021,
+     46.496
+    ],
+    [
+     "onayladı;",
+     46.548,
+     47.076
+    ],
+    [
+     "Kongre",
+     47.134,
+     47.504
+    ],
+    [
+     "inceliyor.",
+     47.545,
+     48.125
+    ]
+   ]
+  },
+  {
+   "start": 48.189,
+   "end": 49.537,
+   "text": "Türkiye'nin altı uçağı",
+   "words": [
+    [
+     "Türkiye'nin",
+     48.189,
+     48.822
+    ],
+    [
+     "altı",
+     48.892,
+     49.156
+    ],
+    [
+     "uçağı",
+     49.185,
+     49.502
+    ]
+   ]
+  },
+  {
+   "start": 49.537,
+   "end": 50.841,
+   "text": "ise hâlâ hangarda.",
+   "words": [
+    [
+     "ise",
+     49.537,
+     49.748
+    ],
+    [
+     "hâlâ",
+     49.771,
+     50.035
+    ],
+    [
+     "hangarda.",
+     50.064,
+     50.591
+    ]
+   ]
+  },
+  {
+   "start": 51.15,
+   "end": 53.071,
+   "text": "Rubio'ya göre S-400 çözülmeden",
+   "words": [
+    [
+     "Rubio'ya",
+     51.15,
+     51.595
+    ],
+    [
+     "göre",
+     51.644,
+     51.891
+    ],
+    [
+     "S-400",
+     51.918,
+     52.412
+    ],
+    [
+     "çözülmeden",
+     52.467,
+     53.01
+    ]
+   ]
+  },
+  {
+   "start": 53.071,
+   "end": 54.717,
+   "text": "bu yasal olarak mümkün değil.",
+   "words": [
+    [
+     "bu",
+     53.071,
+     53.219
+    ],
+    [
+     "yasal",
+     53.235,
+     53.532
+    ],
+    [
+     "olarak",
+     53.565,
+     53.91
+    ],
+    [
+     "mümkün",
+     53.949,
+     54.295
+    ],
+    [
+     "değil.",
+     54.333,
+     54.679
+    ]
+   ]
+  },
+  {
+   "start": 54.717,
+   "end": 55.867,
+   "text": "Kilidi kim açar?",
+   "words": [
+    [
+     "Kilidi",
+     54.717,
+     55.063
+    ],
+    [
+     "kim",
+     55.101,
+     55.299
+    ],
+    [
+     "açar?",
+     55.321,
+     55.617
+    ]
+   ]
+  }
+ ],
+ "sfx": [
+  {
+   "name": "whoosh",
+   "at": 0.02,
+   "file": "gen/sfx_whoosh.wav",
+   "origin": "sentez (tools/f35/prep_audio.py)",
+   "levelDb": -30.0
+  },
+  {
+   "name": "tick",
+   "at": 15.54,
+   "file": "gen/sfx_tick.wav",
+   "origin": "sentez (tools/f35/prep_audio.py)",
+   "levelDb": -30.0
+  },
+  {
+   "name": "lock",
+   "at": 29.47,
+   "file": "gen/sfx_lock.wav",
+   "origin": "sentez (tools/f35/prep_audio.py)",
+   "levelDb": -30.0
+  }
+ ],
+ "beatShifts": {},
+ "masking": [],
+ "warnings": [
+  "public/voiceover_f35.mp3 yok: sessiz taslak, sahne süreleri ve altyazı zamanları tahmini",
+  "public/music_f35.mp3 yok: müziksiz devam ediliyor (render durmadı); vuruş hizalaması yapılmadı",
+  "Konuşma ve müzik yok: miks yalnızca SFX içeriyor, loudnorm uygulanmadı"
+ ],
+ "stats": {
+  "speechEnd": 55.617,
+  "masterLUFS": -28.1,
+  "masterTruePeak": -11.9
+ }
+}

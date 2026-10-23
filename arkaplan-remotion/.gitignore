@@ -1,0 +1,13 @@
+node_modules/
+.cache/
+.env
+public/gen/
+out/f35_raw.mp4
+# Herkese açık repo: kanalın ses/müzik kayıtları, stok klipler ve indirilen fotoğraflar girmez
+# (krediler credits.json'da; dosyalar Mac'teki projede durur).
+public/voiceover_*.mp3
+public/music_*.mp3
+public/broll/*.mp4
+public/photos/*.jpg
+public/depth/
+__pycache__/
