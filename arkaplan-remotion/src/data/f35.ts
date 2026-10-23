@@ -42,7 +42,7 @@ export const PHOTO_SLOTS = {
 /** `pin`: belirli bir Commons dosyası ("File:....jpg") — verilirse arama yapılmaz. */
 export const PHOTO_QUERIES: Record<string, {queries: string[]; note: string; pin?: string}> = {
   'f35a-usaf': {
-    queries: ['F-35A Lightning II hangar U.S. Air Force', 'F-35A Lightning II taxi U.S. Air Force', 'F-35A Lightning II'],
+    queries: ['F-35A hangar', 'F-35A Lightning II shelter', 'F-35A Lightning II flight line', 'F-35A Lightning II parked'],
     note: 'ABD Hava Kuvvetleri F-35A fotoğrafı (kamu malı)',
   },
   's400-milru': {

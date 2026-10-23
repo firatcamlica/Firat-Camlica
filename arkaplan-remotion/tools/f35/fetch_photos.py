@@ -144,7 +144,45 @@ def pick(pid, spec, log):
     return None, None
 
 
+def collect_candidates(n):
+    """--candidates N: her slot için lisansı uygun ilk N adayı küçük boyutta indirir (gözle seçim için)."""
+    d = json.loads(SCRIPT.read_text())
+    root = PUBLIC / 'photos/candidates'
+    root.mkdir(parents=True, exist_ok=True)
+    index = {}
+    for pid in sorted(set(d['photoSlots'].values())):
+        spec = d['photoQueries'][pid]
+        out, seen = [], set()
+        for q in spec['queries']:
+            for page in candidates(q):
+                info = (page.get('imageinfo') or [{}])[0]
+                meta = info.get('extmetadata', {})
+                title = page.get('title', '')
+                short = license_ok(meta)
+                restr = strip(meta.get('Restrictions', {}).get('value', '')).lower()
+                if title in seen or not short or 'personality' in restr or info.get('width', 0) < MIN_WIDTH or info.get('mime') != 'image/jpeg':
+                    continue
+                seen.add(title)
+                k = len(out)
+                data = get(info.get('thumburl') or info['url'])
+                fs = faces(data)
+                if fs and max(fs) > FACE_MAX:
+                    continue
+                (root / f'{pid}_{k}.jpg').write_bytes(data)
+                out.append({'k': k, 'title': title, 'license': short, 'author': strip(meta.get('Artist', {}).get('value', ''))[:100],
+                            'size': [info.get('width'), info.get('height')], 'query': q, 'source': info.get('descriptionurl', '')})
+                if len(out) >= n:
+                    break
+            if len(out) >= n:
+                break
+        index[pid] = out
+        print(pid, len(out), 'aday')
+    (root / 'index.json').write_text(json.dumps(index, ensure_ascii=False, indent=1))
+
+
 def main():
+    if len(sys.argv) > 2 and sys.argv[1] == '--candidates':
+        return collect_candidates(int(sys.argv[2]))
     if not SCRIPT.exists():
         sys.exit('önce: node tools/f35/data.mjs')
     d = json.loads(SCRIPT.read_text())
