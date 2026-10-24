@@ -10,11 +10,11 @@ import {COLORS, FONTS} from './tokens';
 import {LockIcon} from './Lock';
 
 type LonLat = [number, number];
-export type MapArrow = {from: LonLat; to: LonLat; frame: number; endLabel?: string; bend?: number; /** etiketin uca göre konumu (px) */ labelOffset?: [number, number]};
+export type MapArrow = {from: LonLat; to: LonLat; frame: number; endLabel?: string; bend?: number; color?: string; /** etiketin uca göre konumu (px) */ labelOffset?: [number, number]};
 export type MapLink = {from: LonLat; to: LonLat; frame: number; icon?: 'lock'};
 /** Harita üstü serbest öğe (ör. durum damgası); `at` koordinatına göre konumlanır */
 export type MapMarker = {at: LonLat; frame: number; node: React.ReactNode; dx?: number; dy?: number};
-export type MapLabel = {at: LonLat; text: string; frame: number; dx?: number; dy?: number; strong?: boolean; dot?: boolean};
+export type MapLabel = {at: LonLat; text: string; frame: number; dx?: number; dy?: number; strong?: boolean; dot?: boolean; /** etiketin solunda küçük işaret (ör. bayrak) */ badge?: React.ReactNode};
 
 const clamp = {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'} as const;
 const ease = Easing.out(Easing.cubic);
@@ -103,11 +103,11 @@ export const RegionMap: React.FC<{
           const head = 18;
           return (
             <g key={`a${i}`}>
-              <polyline points={pts.map((p) => p.join(',')).join(' ')} fill="none" stroke={COLORS.cream} strokeWidth={5} strokeDasharray="14 12" strokeLinecap="round" />
+              <polyline points={pts.map((p) => p.join(',')).join(' ')} fill="none" stroke={ar.color ?? COLORS.cream} strokeWidth={5} strokeDasharray="14 12" strokeLinecap="round" />
               {t > 0.97 ? (
                 <path
                   d={`M${x1} ${y1} L${x1 - head * Math.cos(ang - 0.45)} ${y1 - head * Math.sin(ang - 0.45)} M${x1} ${y1} L${x1 - head * Math.cos(ang + 0.45)} ${y1 - head * Math.sin(ang + 0.45)}`}
-                  stroke={COLORS.cream}
+                  stroke={ar.color ?? COLORS.cream}
                   strokeWidth={5}
                   strokeLinecap="round"
                 />
@@ -145,7 +145,7 @@ export const RegionMap: React.FC<{
                 width: 54,
                 height: 54,
                 borderRadius: 27,
-                background: COLORS.cream,
+                background: ar.color ?? COLORS.cream,
                 color: COLORS.black,
                 fontFamily: FONTS.sans,
                 fontWeight: 800,
@@ -179,6 +179,9 @@ export const RegionMap: React.FC<{
                   left: lb.dx ?? 14,
                   top: lb.dy ?? -14,
                   whiteSpace: 'nowrap',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
                   fontFamily: FONTS.mono,
                   fontWeight: lb.strong ? 700 : 500,
                   fontSize: lb.strong ? 30 : 26,
@@ -187,6 +190,7 @@ export const RegionMap: React.FC<{
                   textShadow: '0 2px 10px rgba(0,0,0,0.6)',
                 }}
               >
+                {lb.badge}
                 {lb.text}
               </div>
             </div>

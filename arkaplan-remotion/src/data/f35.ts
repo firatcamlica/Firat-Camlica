@@ -22,10 +22,33 @@ export const publishDate = '2026-10-24';
 export const WAIT_START = '2019-07-17';
 
 /** Süre kuralları (sn): 60,0 asla aşılmaz; hedef 56–58; son 2 sn marka kapanış kartı. */
-export const DURATION = {max: 60, targetMin: 56, targetMax: 58, endCard: 2};
+export const DURATION = {
+  max: 60,
+  targetMin: 56,
+  targetMax: 58,
+  endCard: 2,
+  /** false: konuşma bitince doğrudan kapanış kartı (24 Eki 2026 revizyonu: sondaki 8–9 sn'lik boşluk ve soru kısmı çıkarıldı).
+   *  true: toplam süre targetMin'e kadar S8 uzatılır. */
+  padToTarget: false,
+  /** Konuşmanın bitişiyle kapanış kartı arasındaki pay (sn) */
+  tailAfterSpeech: 0.2,
+};
 
 export const voiceFile = 'voiceover_f35.mp3';
 export const musicFile = 'music_f35.mp3';
+/** Müzik kredisi (public/broll/credits.json ve out/ATTRIBUTION.md'ye yazılır) */
+export const MUSIC_CREDIT = {
+  title: 'Documentary',
+  artist: 'tatamusic',
+  source: 'Pixabay',
+  pixabayId: 595125,
+  file: 'tatamusic-documentary-documentary-music-595125.mp3',
+  pageUrl: 'https://pixabay.com/users/tatamusic/',
+  pageUrlNote: 'Parça sayfasının tam adresi Pixabay\'de 595125 numarasıyla doğrulanmalı',
+  license: 'Pixabay Content License',
+  licenseUrl: 'https://pixabay.com/service/license-summary/',
+  downloaded: '2026-10-24',
+};
 /** İsteğe bağlı: müziğin yalnızca piyano kanalı (stem). Yoksa S1 açılışında müzik alçak geçirenle yumuşatılır. */
 export const musicPianoFile = 'music_f35_piano.mp3';
 
@@ -41,8 +64,9 @@ export const AUDIO_SETTINGS = {
   musicAutomation: {
     /** S1'in ilk 3,5 sn'si yalnızca piyano, -16 dB */
     pianoIntro: {seconds: 3.5, db: -16},
-    /** S6 başında 2 karede kesilir, 1,2 sn sessizlik, sonra -28 dB; S7 başında 1 sn'de normale döner */
-    plotTwist: {cutFrames: 2, silence: 1.2, restartDb: -28, recoverSeconds: 1},
+    /** S6 başında müzik kodla "tape stop" ile durur (parçada doğal bir duruş yok), 1,2 sn sessizlik, sonra -28 dB;
+     *  S7 başında 1 sn'de normale döner */
+    plotTwist: {tapeStop: 0.5, silence: 1.2, restartDb: -28, recoverSeconds: 1},
   },
   sfx: {underMusicDb: -3, maxCount: 8},
   beatSnapMaxFrames: 3,
@@ -308,7 +332,6 @@ export const TEXT = {
     kicker: 'DURUM: HÂLÂ BEKLEMEDE',
     lines: ["Bu arada: Suudi Arabistan'a 48 F-35 onayı · Eyl 2026", 'Marco Rubio · ABD Dışişleri Bakanı · 7 Eki 2026: S-400 çözülmeden yasal olarak mümkün değil.'],
     keys: ['WASHINGTON', 'MOSKOVA'],
-    question: 'Sence önce hangi kilit açılır?',
   },
 
   cover: {kicker: '6 F-35 · 7 YIL'},

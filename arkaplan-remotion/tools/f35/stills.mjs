@@ -36,10 +36,8 @@ if (mode === 'qa' || mode === 'all') {
     const b = i + 1 < ids.length ? starts[i + 1] : total;
     await shot('turkiye-f35', Math.min(comp.durationInFrames - 1, Math.round(((a + b) / 2) * comp.fps)), `out/qa_f35/${ids[i]}_orta.jpg`);
   }
-  // S8 son 2 sn (alıntı + soru)
-  await shot('turkiye-f35', Math.round((audio.sceneStarts.S9 - 1.0) * comp.fps), `out/qa_f35/S8_soru.jpg`);
   // ek: kart/vurgu anları (son durum)
-  for (const [name, key, plus] of [['S1_damga', 'S1.stamp', 0.6], ['S3_5gun', 'S3.stamp', 0.6], ['S5_kural', 'S5.law', 1.2], ['S6_kartlar', 'S6.note', 0.8], ['S7_onay', 'S7.stamp', 1.0], ['S8_anahtar', 'S8.keys', 2.0]]) {
+  for (const [name, key, plus] of [['S1_damga', 'S1.stamp', 0.6], ['S3_5gun', 'S3.stamp', 0.6], ['S5_kural', 'S5.law', 1.2], ['S6_kartlar', 'S6.note', 0.8], ['S7_onay', 'S7.stamp', 1.0], ['S8_anahtar', 'S8.keys', 1.5], ['S7_harita', 'S7.press', 0.6]]) {
     const t = audio.cues?.[key];
     if (t !== undefined) await shot('turkiye-f35', Math.round((t + plus) * comp.fps), `out/qa_f35/${name}.jpg`);
   }

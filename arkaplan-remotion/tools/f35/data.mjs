@@ -41,6 +41,7 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     voiceFile: d.voiceFile,
     musicFile: d.musicFile,
     musicPianoFile: d.musicPianoFile,
+    musicCredit: d.MUSIC_CREDIT,
     publishDate: d.publishDate,
     waitStart: d.WAIT_START,
     scenes,

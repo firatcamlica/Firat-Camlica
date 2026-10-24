@@ -44,7 +44,7 @@ const a = meta?.streams.find((s) => s.codec_name === 'aac');
 add('Teknik', 'Video dosyası', Boolean(meta), meta ? VIDEO : `${VIDEO} yok`);
 if (meta) {
   add('Teknik', 'Süre ≤ 60,0 sn', dur <= d.DURATION.max, `${dur.toFixed(3)} sn`);
-  add('Teknik', 'Hedef 56–58 sn', dur >= d.DURATION.targetMin && dur <= d.DURATION.targetMax + 0.05 ? true : null, `${dur.toFixed(2)} sn`);
+  add('Teknik', 'Hedef 56–58 sn', dur >= d.DURATION.targetMin && dur <= d.DURATION.targetMax + 0.05 ? true : null, `${dur.toFixed(2)} sn${d.DURATION.padToTarget === false ? ' — 24 Eki revizyonu: konuşma bitince doğrudan kapanış kartı (sondaki boşluk ve soru çıkarıldı), hedefin altında kalması bilinçli' : ''}`);
   add('Teknik', 'H.264 1080x1920 30 fps yuv420p', v && v.width === 1080 && v.height === 1920 && v.r_frame_rate === '30/1' && v.pix_fmt === 'yuv420p', v ? `${v.codec_name} ${v.profile} ${v.width}x${v.height} ${v.r_frame_rate} ${v.pix_fmt}` : 'video akışı yok');
   const brOk = a && a.sample_rate === '48000' && Number(a.bit_rate) >= 150000 && Number(a.bit_rate) <= 200000;
   // sessiz taslakta AAC kodlayıcı 192k ayarlı olsa da sessizliği çok az bitle kodlar
@@ -188,7 +188,7 @@ add('Tarafsızlık', 'S4 taraf satırları', null, `${L.who} | ${R.who} — Anka
   add('Gün sayacı', 'BEKLEME değeri (publishDate)', true, `${d.WAIT_START} → ${d.publishDate} = ${days} gün; S9'a girerken bu değere ulaşır, S6'da donar`);
   add('Gün sayacı', 'Konum: sağ üst, güvenli alan içinde', true, 'x ≤ 940, y 230–272; altyazı 1372–1540, kartlar ve üst etiketler y ≥ 290 → çakışma yok (güvenli alan QA karelerinde görülebilir)');
 }
-add('Taklit', 'Gerçek kurum logosu / arayüz taklidi yok', true, 'Takip ekranı yalnızca kanal paleti, Bricolage/JetBrains/Playfair ve iki durum rengiyle çizildi; hiçbir kargo firması, Lockheed Martin, USAF ya da kurum logosu/belge düzeni kullanılmadı. Harita bayrak içermez (ülkeler isim + ince kontur)');
+add('Taklit', 'Gerçek kurum logosu / arayüz taklidi yok', true, 'Takip ekranı yalnızca kanal paleti, Bricolage/JetBrains/Playfair ve iki durum rengiyle çizildi; hiçbir kargo firması, Lockheed Martin, USAF ya da kurum logosu/belge düzeni kullanılmadı. Haritada kullanıcı isteğiyle (24 Eki) küçük ülke bayrakları var; resmî arma/amblem çizilmedi');
 add('Taklit', 'Fotoğraflardaki işaretler', null, 'F-35A fotoğrafında uçağın kendi kuyruk numarası ve birlik işaretleri görünür (fotoğrafın doğal parçası, logo kullanımı değil). Bayraklı aday (Commons #0) bu nedenle kullanılmadı');
 
 // ---------------------------------------------------------------- 7. görseller ve eksikler

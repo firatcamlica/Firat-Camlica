@@ -44,7 +44,7 @@ const screen = {
   S5: [T.s5.kicker, `${T.s5.quote.name} · ${T.s5.quote.title} · ${T.s5.quote.date}: "${T.s5.quote.text}" (özet)`, `damga: ${T.stamps.extra}`, T.s5.rule, T.s5.footer],
   S6: [T.s6.wait, ...[T.s6.left, T.s6.right].map((p) => `${p.pkg} · ${p.name} · Konum: ${p.location} · Son güncelleme: ${p.updated} · ${T.stamps.wait} · ${p.note}`)],
   S7: [T.s7.kicker, T.s7.press, T.s7.qatarNote, `damga: ${T.stamps.approval}`, `${T.s7.lavrov.name} · ${T.s7.lavrov.title} · ${T.s7.lavrov.date}: "${T.s7.lavrov.text}" (özet)`],
-  S8: [T.s8.kicker, ...T.s8.lines, `anahtarlar: ${T.s8.keys.join(' · ')}`, T.s8.question],
+  S8: [T.s8.kicker, ...T.s8.lines, `anahtarlar: ${T.s8.keys.join(' · ')}`],
 };
 const all = [];
 let md = `# Kaynaklar · ${d.TITLE}\n\nSlug: \`${d.SLUG}\` · Site: https://arkaplan.pages.dev/#${d.SLUG}\n\n`;
@@ -79,7 +79,10 @@ at += clips.length
   ? `| Sahne | Sorgu | Kaynak sayfa | Yazar | Lisans | İndirme | Yüz kontrolü |\n|---|---|---|---|---|---|---|\n${clips.map((c) => `| ${c.scene} | ${c.query} | ${c.pageUrl} | ${c.author} | [${c.license}](${c.licenseUrl}) | ${c.downloaded} | ${c.faceCheck} |`).join('\n')}\n\n`
   : `Kullanılmadı (PEXELS_API_KEY / PIXABAY_API_KEY yok ya da uygun klip bulunamadı).\n\n`;
 at += `## Ses\n\n- Seslendirme: \`public/${d.voiceFile}\` (${audio.voice ? 'kullanıldı' : 'bu render\'da YOK'}), ElevenLabs ile üretildi (ses: Derya), kanalın kaydı.\n`;
-at += `- Müzik: \`public/${d.musicFile}\` (${audio.music ? 'kullanıldı' : 'bu render\'da YOK'}). Lisans bilgisini buraya ekleyin.\n`;
+const mc = d.MUSIC_CREDIT;
+at += audio.music
+  ? `- Müzik: "${mc.title}" · ${mc.artist} · ${mc.source} (id ${mc.pixabayId}) · ${mc.pageUrl} · [${mc.license}](${mc.licenseUrl}) · indirme ${mc.downloaded}. Dosya: \`${mc.file}\` → \`public/${d.musicFile}\`; videonun süresine kırpıldı, S6'da kodla tape stop + 1,2 sn sessizlik, kapanışta 1,5 sn fade out. Not: ${mc.pageUrlNote}.\n`
+  : `- Müzik: \`public/${d.musicFile}\` bu render'da YOK.\n`;
 at += `- SFX: ${(audio.sfx ?? []).map((s) => `${s.name} (${s.at} sn, ${s.origin})`).join(', ') || 'yok'}.\n\n`;
 at += `## Yazı tipi, harita, model\n\n- Bricolage Grotesque, JetBrains Mono, Playfair Display: SIL Open Font License 1.1 (@fontsource).\n- Harita: Natural Earth (kamu malı) · world-atlas (ISC).\n`;
 at += used.some(([, p]) => p.fg) ? `- Derinlik: Depth Anything V2 Small (Apache 2.0), yerel.\n` : `- Derinlik (parallax): Depth Anything V2 Small (Apache 2.0) — bu render'da kullanılmadı (fotoğraf yok).\n`;

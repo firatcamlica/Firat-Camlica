@@ -1,12 +1,12 @@
 {
  "generated": true,
  "voice": "gen/f35_voice.wav",
- "music": null,
+ "music": "music_f35.mp3",
  "master": "gen/f35_master.wav",
  "wordTiming": "faster-whisper medium (önbellek, orijinal kayıt); senaryo eşleşmesi %88",
- "bpm": null,
- "beatOffset": 0.0,
- "bpmMethod": null,
+ "bpm": 99.32,
+ "beatOffset": 0.24,
+ "bpmMethod": "librosa (beat_track 99.4, ızgara uydurma)",
  "speech": [
   [
    0.0,
@@ -104,15 +104,15 @@
  "sceneStarts": {
   "S1": 0.0,
   "S2": 6.604,
-  "S3": 13.042,
-  "S4": 18.394,
+  "S3": 12.926,
+  "S4": 18.363,
   "S5": 24.68,
   "S6": 30.299,
-  "S7": 37.137,
-  "S8": 43.175,
-  "S9": 54.0
+  "S7": 37.091,
+  "S8": 43.132,
+  "S9": 47.733
  },
- "totalSeconds": 56.0,
+ "totalSeconds": 49.733,
  "cues": {
   "S1.count": 3.029,
   "S1.stamp": 5.886,
@@ -754,62 +754,68 @@
    "at": 0.0,
    "file": "gen/sfx_type.wav",
    "origin": "sentez (tools/f35/prep_audio.py)",
-   "levelDb": -30.0
+   "levelDb": -35.0
   },
   {
    "name": "stamp",
    "at": 5.886,
    "file": "gen/sfx_stamp.wav",
    "origin": "sentez (tools/f35/prep_audio.py)",
-   "levelDb": -30.0
+   "levelDb": -39.0
   },
   {
    "name": "paper",
    "at": 15.047,
    "file": "gen/sfx_paper.wav",
    "origin": "sentez (tools/f35/prep_audio.py)",
-   "levelDb": -30.0
+   "levelDb": -39.0
   },
   {
    "name": "stamp",
    "at": 17.486,
    "file": "gen/sfx_stamp.wav",
    "origin": "sentez (tools/f35/prep_audio.py)",
-   "levelDb": -30.0
+   "levelDb": -39.0
   },
   {
    "name": "stamp",
    "at": 26.362,
    "file": "gen/sfx_stamp.wav",
    "origin": "sentez (tools/f35/prep_audio.py)",
-   "levelDb": -30.0
+   "levelDb": -39.0
   },
   {
-   "name": "tape",
-   "at": 30.299,
-   "file": "gen/sfx_tape.wav",
+   "name": "whoosh",
+   "at": 3.429,
+   "file": "gen/sfx_whoosh.wav",
    "origin": "sentez (tools/f35/prep_audio.py)",
-   "levelDb": -30.0
+   "levelDb": -35.0
   },
   {
    "name": "stamp",
    "at": 40.971,
    "file": "gen/sfx_stamp.wav",
    "origin": "sentez (tools/f35/prep_audio.py)",
-   "levelDb": -30.0
+   "levelDb": -39.0
   },
   {
    "name": "metal",
    "at": 45.2,
    "file": "gen/sfx_metal.wav",
    "origin": "sentez (tools/f35/prep_audio.py)",
-   "levelDb": -30.0
+   "levelDb": -39.0
   }
  ],
- "beatShifts": {},
+ "beatShifts": {
+  "S3": -3,
+  "S4": -1,
+  "S7": -1,
+  "S8": -1
+ },
  "masking": [],
  "warnings": [
-  "public/music_f35.mp3 yok: müziksiz devam ediliyor (render durmadı); vuruş hizalaması yapılmadı"
+  "Toplam süre 49.733 sn, hedef 56–58 sn dışında",
+  "S1 piyano girişi: public/music_f35_piano.mp3 yok, müzik filtrelenerek yaklaşık piyano bölgesi kullanıldı"
  ],
  "stats": {
   "voiceOriginal": 50.13,
@@ -824,8 +830,11 @@
   ],
   "asrMatch": 0.881,
   "speechEnd": 47.525,
-  "masterLUFS": -14.0,
-  "masterTruePeak": -2.1
+  "pianoIntro": "stem yok: alçak geçiren (120–1800 Hz) yaklaşık",
+  "tapeStop": "S6 30.299 sn: müzik 0.5 sn'de durdu (kodla), ardından 1.2 sn sessizlik",
+  "musicLooped": false,
+  "masterLUFS": -13.9,
+  "masterTruePeak": -1.7
  },
  "words": [
   [

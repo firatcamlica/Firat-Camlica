@@ -1,22 +1,20 @@
 # VERIFY · turkiye-f35
 
-Üretim: 2026-10-23 22:09 UTC · Kompozisyon `turkiye-f35` · 56.00 sn
+Üretim: 2026-10-24 13:23 UTC · Kompozisyon `turkiye-f35` · 49.73 sn
 
 **Sonuç: engelleyici bulgu yok; ⚠️ = ölçülemedi ya da elle bakılmalı.**
-
-> Bu render **taslaktır**: müzik dosyası yoktu. Dosyalar `public/` altına konup `npm run f35:render` çalıştırılınca tüm ölçümler yeniden yapılır.
 
 ## Teknik
 
 | Kontrol | Sonuç | Ayrıntı |
 |---|---|---|
 | Video dosyası | ✅ | out/turkiye-f35.mp4 |
-| Süre ≤ 60,0 sn | ✅ | 56.000 sn |
-| Hedef 56–58 sn | ✅ | 56.00 sn |
+| Süre ≤ 60,0 sn | ✅ | 49.733 sn |
+| Hedef 56–58 sn | ⚠️ | 49.73 sn — 24 Eki revizyonu: konuşma bitince doğrudan kapanış kartı (sondaki boşluk ve soru çıkarıldı), hedefin altında kalması bilinçli |
 | H.264 1080x1920 30 fps yuv420p | ✅ | h264 High 1080x1920 30/1 yuv420p |
-| AAC 192 kbps 48 kHz | ✅ | aac 165 kbps 48000 Hz ortalama (kodlayıcı -b:a 192k; konuşma tek kanal olduğu için ortalama düşer) |
-| Son 2 sn kapanış kartı | ✅ | S9 54 sn → 56 sn |
-| Konuşma kapanış kartından önce biter | ✅ | konuşma sonu 47.525 sn, kart 54 sn |
+| AAC 192 kbps 48 kHz | ✅ | aac 196 kbps 48000 Hz ortalama (kodlayıcı -b:a 192k; konuşma tek kanal olduğu için ortalama düşer) |
+| Son 2 sn kapanış kartı | ✅ | S9 47.733 sn → 49.733 sn |
+| Konuşma kapanış kartından önce biter | ✅ | konuşma sonu 47.525 sn, kart 47.733 sn |
 
 ## Hook
 
@@ -46,7 +44,7 @@
 
 | Kontrol | Sonuç | Ayrıntı |
 |---|---|---|
-| ASR senkronu (p95 ≤ 0,25 sn) | ✅ | faster-whisper medium (final MP4, GitHub Actions); eşleşme %88, ortalama 0.024 sn, p95 0.061 sn, en kötü 0.439 sn |
+| ASR senkronu (p95 ≤ 0,25 sn) | ✅ | faster-whisper medium (final MP4, GitHub Actions); eşleşme %85, ortalama 0.017 sn, p95 0.042 sn, en kötü 0.261 sn |
 | Kelime zamanlaması | ✅ | faster-whisper medium (önbellek, orijinal kayıt); senaryo eşleşmesi %88 |
 | Alıntı cümlesinin altyazısı gösterilmiyor | ✅ | S1 ilk cümle gizli (ekranda zaten yazılı) |
 | Okunuş yazımları altyazıda yok | ✅ | ef otuz beş, es dört yüz, Emirlikler, Amerika → yok |
@@ -63,12 +61,12 @@
 
 | Kontrol | Sonuç | Ayrıntı |
 |---|---|---|
-| Entegre loudness -14 LUFS (±1) | ✅ | -14 LUFS |
-| Gerçek tepe ≤ -1 dBTP | ✅ | -2.3 dBTP |
-| Müzik | ⚠️ | public/music_f35.mp3 yok: müziksiz render (uyarı) |
-| Müziğin konuşmayı bastırdığı saniye | ⚠️ | ölçülemedi |
-| SFX (en fazla 8 olay, müziğin altında) | ✅ | type @ 0 sn (-30 dB, sentez (tools/f35/prep_audio.py)); stamp @ 5.886 sn (-30 dB, sentez (tools/f35/prep_audio.py)); paper @ 15.047 sn (-30 dB, sentez (tools/f35/prep_audio.py)); stamp @ 17.486 sn (-30 dB, sentez (tools/f35/prep_audio.py)); stamp @ 26.362 sn (-30 dB, sentez (tools/f35/prep_audio.py)); tape @ 30.299 sn (-30 dB, sentez (tools/f35/prep_audio.py)); stamp @ 40.971 sn (-30 dB, sentez (tools/f35/prep_audio.py)); metal @ 45.2 sn (-30 dB, sentez (tools/f35/prep_audio.py)) |
-| Vuruş hizalaması (≤ 3 kare) | ⚠️ | BPM yok: hizalama yapılmadı |
+| Entegre loudness -14 LUFS (±1) | ✅ | -13.9 LUFS |
+| Gerçek tepe ≤ -1 dBTP | ✅ | -2 dBTP |
+| Müzik | ✅ | music_f35.mp3, BPM 99.32 (librosa (beat_track 99.4, ızgara uydurma)), ilk vuruş 0.24 sn |
+| Müziğin konuşmayı bastırdığı saniye | ✅ | yok (konuşma her saniyede müziğin en az 10 dB üstünde) |
+| SFX (en fazla 8 olay, müziğin altında) | ✅ | type @ 0 sn (-35 dB, sentez (tools/f35/prep_audio.py)); stamp @ 5.886 sn (-39 dB, sentez (tools/f35/prep_audio.py)); paper @ 15.047 sn (-39 dB, sentez (tools/f35/prep_audio.py)); stamp @ 17.486 sn (-39 dB, sentez (tools/f35/prep_audio.py)); stamp @ 26.362 sn (-39 dB, sentez (tools/f35/prep_audio.py)); whoosh @ 3.429 sn (-35 dB, sentez (tools/f35/prep_audio.py)); stamp @ 40.971 sn (-39 dB, sentez (tools/f35/prep_audio.py)); metal @ 45.2 sn (-39 dB, sentez (tools/f35/prep_audio.py)) |
+| Vuruş hizalaması (≤ 3 kare) | ✅ | {"S3":-3,"S4":-1,"S7":-1,"S8":-1} |
 
 ## Tarafsızlık
 
@@ -82,8 +80,8 @@
 | Tanpınar alıntısı edebi epigraf | ✅ | Ahmet Hamdi Tanpınar · Huzur (1949); ülke/kişi yorumu olarak sunulmuyor (SOURCES.md: Huzur, 1949, birinci bölüm) |
 | Seslendirmede yorum içeren ifade | ⚠️ | S7: "Çözüm onları satmak." kayıttaki ifade; satışı bir çözüm olarak sunuyor. Altyazı kayda bağlı olduğu için değiştirilmedi — yeniden seslendirmede "Bir seçenek satış." gibi atıflı bir ifade önerilir |
 | S4 iki taraf: piksel alanı sol/sağ | ✅ | 209943 / 215874 px (oran 1.03, kare 665) |
-| S6 iki paket: piksel alanı sol/sağ | ✅ | 288184 / 288265 px (oran 1.00, kare 1094) |
-| S8 iki paket + iki anahtar: piksel alanı sol/sağ | ✅ | 241026 / 240521 px (oran 1.00, kare 1458) |
+| S6 iki paket: piksel alanı sol/sağ | ✅ | 288184 / 288265 px (oran 1.00, kare 1092) |
+| S8 iki paket + iki anahtar: piksel alanı sol/sağ | ✅ | 241026 / 240518 px (oran 1.00, kare 1363) |
 | S4 taraf satırları | ⚠️ | Pentagon · 17 Tem 2019 / Türk hükümeti · 7 Tem 2026 — Ankara ifadesinin sahibi (isim/unvan) Medyascope 7 Tem 2026 haberinden doğrulanmalı |
 
 ## Gün sayacı
@@ -97,7 +95,7 @@
 
 | Kontrol | Sonuç | Ayrıntı |
 |---|---|---|
-| Gerçek kurum logosu / arayüz taklidi yok | ✅ | Takip ekranı yalnızca kanal paleti, Bricolage/JetBrains/Playfair ve iki durum rengiyle çizildi; hiçbir kargo firması, Lockheed Martin, USAF ya da kurum logosu/belge düzeni kullanılmadı. Harita bayrak içermez (ülkeler isim + ince kontur) |
+| Gerçek kurum logosu / arayüz taklidi yok | ✅ | Takip ekranı yalnızca kanal paleti, Bricolage/JetBrains/Playfair ve iki durum rengiyle çizildi; hiçbir kargo firması, Lockheed Martin, USAF ya da kurum logosu/belge düzeni kullanılmadı. Haritada kullanıcı isteğiyle (24 Eki) küçük ülke bayrakları var; resmî arma/amblem çizilmedi |
 | Fotoğraflardaki işaretler | ⚠️ | F-35A fotoğrafında uçağın kendi kuyruk numarası ve birlik işaretleri görünür (fotoğrafın doğal parçası, logo kullanımı değil). Bayraklı aday (Commons #0) bu nedenle kullanılmadı |
 
 ## Kapak
@@ -119,13 +117,13 @@ Taşma, güvenli alan ve okunurluk için gözle bakılacak kareler. Güvenli ala
 | Sahne | Kare | Üst | Alt | Sağ | |
 |---|---|---|---|---|---|
 | S1 | 168 | 0 | 0 | 0 | ✅ |
-| S2 | 362 | 0 | 0 | 27 | ✅ |
-| S3 | 528 | 0 | 0 | 0 | ✅ |
+| S2 | 359 | 0 | 0 | 27 | ✅ |
+| S3 | 526 | 0 | 0 | 0 | ✅ |
 | S4 | 712 | 0 | 0 | 0 | ✅ |
 | S5 | 884 | 0 | 0 | 0 | ✅ |
-| S6 | 1083 | 0 | 0 | 0 | ✅ |
-| S7 | 1268 | 0 | 0 | 0 | ✅ |
-| S8 | 1571 | 0 | 0 | 0 | ✅ |
+| S6 | 1082 | 0 | 0 | 0 | ✅ |
+| S7 | 1267 | 0 | 0 | 0 | ✅ |
+| S8 | 1411 | 0 | 0 | 0 | ✅ |
 
 S1: ![](qa_f35/S1_orta.jpg)
 S2: ![](qa_f35/S2_orta.jpg)
@@ -148,14 +146,14 @@ Okunurluk: altyazı 58 px (en az 46 px), başlıklar ≥ 50 px, kart metni ≥ 3
 
 ## Eksik dosyalar
 
-- public/music_f35.mp3 (müzik)
 - B-roll S3 → fotoğraf/çizim kullanıldı
 - B-roll S6 → fotoğraf/çizim kullanıldı
 - motion-showreel/scripts/sfx.mjs (SFX tools/f35/prep_audio.py içinde sentezlendi)
 
 ## Uyarılar
 
-- public/music_f35.mp3 yok: müziksiz devam ediliyor (render durmadı); vuruş hizalaması yapılmadı
+- Toplam süre 49.733 sn, hedef 56–58 sn dışında
+- S1 piyano girişi: public/music_f35_piano.mp3 yok, müzik filtrelenerek yaklaşık piyano bölgesi kullanıldı
 - PEXELS_API_KEY yok: Pexels atlandı
 - PIXABAY_API_KEY yok: Pixabay atlandı
 - S1: kabul edilen klip yok (sahne fotoğraf/çizimle kalır)

@@ -419,8 +419,10 @@ def music_envelope(n, speech, scene_bounds, levels, cfg, total, auto=None, start
         env_db = np.where(t < pi['seconds'], pi['db'], env_db)
         pt = auto['plotTwist']
         t6, t7 = starts['S6'], starts['S7']
-        cut = pt['cutFrames'] / fps
-        mult = np.where((t >= t6) & (t < t6 + cut), 1 - (t - t6) / cut, mult)
+        cut = pt.get('tapeStop', pt.get('cutFrames', 2) / fps)
+        # tape stop süresince seviye S6 başındaki değerde sabit kalır (yavaşlama music_bed'de uygulanır)
+        i6 = min(n - 1, int(t6 * SR))
+        env_db = np.where((t >= t6) & (t < t6 + cut), env_db[i6], env_db)
         mult = np.where((t >= t6 + cut) & (t < t6 + cut + pt['silence']), 0, mult).astype(np.float32)
         env_db = np.where((t >= t6 + cut + pt['silence']) & (t < t7), pt['restartDb'], env_db)
         rec = np.clip((t - t7) / pt['recoverSeconds'], 0, 1)
@@ -436,13 +438,19 @@ def music_envelope(n, speech, scene_bounds, levels, cfg, total, auto=None, start
 
 def synth_sfx(kind):
     """Kısa SFX sentezi (public/sfx/f35_<tür>.wav yoksa). Türler: type, stamp, paper, tape, metal."""
-    rng = np.random.default_rng({'type': 1, 'stamp': 2, 'paper': 3, 'tape': 4, 'metal': 5}[kind])
+    rng = np.random.default_rng({'type': 1, 'stamp': 2, 'paper': 3, 'tape': 4, 'metal': 5, 'whoosh': 6}[kind])
 
     def tt(sec):
         n = int(sec * SR)
         return n, np.arange(n) / SR
 
-    if kind == 'type':                        # daktilo tuşu: 30 ms klik + gövde rezonansı
+    if kind == 'whoosh':                      # 0,4 sn kısa whoosh: süpürmeli bant gürültüsü
+        n, t = tt(0.4)
+        noise = rng.standard_normal(n)
+        sweep = np.sin(2 * np.pi * np.cumsum(400 + 2400 * t / 0.4) / SR)
+        hp = noise - np.convolve(noise, np.ones(12) / 12, mode='same')
+        y = (hp * 0.7 + 0.3 * noise * sweep) * np.sin(np.pi * np.clip(t / 0.4, 0, 1)) ** 2
+    elif kind == 'type':                        # daktilo tuşu: 30 ms klik + gövde rezonansı
         n, t = tt(0.06)
         y = rng.standard_normal(n) * np.exp(-t * 260) * 0.6 + np.sin(2 * np.pi * 1900 * t) * np.exp(-t * 180) * 0.5
         y += np.sin(2 * np.pi * 320 * t) * np.exp(-t * 90) * 0.3
@@ -472,6 +480,27 @@ def synth_sfx(kind):
                               for fq, dd, aa in [(2380, 60, 1), (3710, 80, 0.6), (5230, 110, 0.4)])
     y = np.asarray(y, dtype=np.float32)
     return y / (np.max(np.abs(y)) + 1e-9) * 0.9
+
+
+def tape_stop(bed, at, dur):
+    """Bant durması: `at` anından itibaren çalma hızı `dur` sn içinde 1'den 0'a iner (perde ve tempo birlikte düşer).
+    Sonrası sıfırlanır; sessizlik ve yeniden başlama müzik zarfında yapılır."""
+    i0 = int(at * SR)
+    n = int(dur * SR)
+    if i0 >= len(bed):
+        return bed
+    rate = np.linspace(1, 0, n, dtype=np.float64) ** 1.3
+    pos = i0 + np.cumsum(rate)
+    pos = np.clip(pos, 0, len(bed) - 2)
+    k = pos.astype(int)
+    fr = (pos - k)[:, None]
+    seg = bed[k] * (1 - fr) + bed[k + 1] * fr
+    seg *= np.linspace(1, 0.2, n)[:, None]
+    out = bed.copy()
+    end = min(len(out), i0 + n)
+    out[i0:end] = seg[:end - i0]
+    out[end:end + int(0.02 * SR)] *= 0
+    return out
 
 
 def type_sequence(times, y):
@@ -617,15 +646,16 @@ def main():
         if shift:
             man['beatShifts'][s['id']] = shift
     end_card = dur['endCard']
-    s9 = max(speech_end + 0.35, starts[ids[-2]] + 2.0)
-    s9, shift = snap(s9, bpm, offset, fps, cfg['beatSnapMaxFrames'])
-    if s9 < speech_end + 0.2:
-        s9 = speech_end + 0.35
-    if shift:
-        man['beatShifts']['S9'] = shift
+    tail = dur.get('tailAfterSpeech', 0.35)
+    s9 = max(speech_end + tail, starts[ids[-2]] + 2.0)
+    s9s, shift = snap(s9, bpm, offset, fps, cfg['beatSnapMaxFrames'])
+    if s9s >= speech_end + 0.05:     # kapanış kartı konuşmayı kesemez
+        s9 = s9s
+        if shift:
+            man['beatShifts']['S9'] = shift
     total = s9 + end_card
-    if total < dur['targetMin']:
-        # S8'deki soruyu daha uzun tut (hedef 56 sn)
+    if dur.get('padToTarget', True) and total < dur['targetMin']:
+        # S8'i uzatarak hedef süreye getir
         s9 += dur['targetMin'] - total
         total = dur['targetMin']
     s9 = round(round(s9 * fps) / fps, 3)
@@ -677,10 +707,10 @@ def main():
             snapkey(key, c[key])
     c['S3.flipStart'] = round(c['S3.fiveDays'] - 20 / fps, 3)   # 12 → 17: 5 yaprak × 4 kare
 
-    # --- 5. SFX yerleri (en fazla 8 olay; sayaç whoosh'u sınır nedeniyle çıkarıldı)
+    # --- 5. SFX yerleri (en fazla 8 olay; S6 tape stop müziğe kodla uygulanır, ayrı SFX değil)
     quote_times = [w['start'] for w in words if w['scene'] == 0 and w['hide']]
     sfx_plan = [('type', quote_times[0] if quote_times else 0.0), ('stamp', c.get('S1.stamp')), ('paper', c.get('S3.flipStart')),
-                ('stamp', c.get('S3.stamp')), ('stamp', c.get('S5.rule')), ('tape', starts.get('S6')),
+                ('stamp', c.get('S3.stamp')), ('stamp', c.get('S5.rule')), ('whoosh', c.get('S1.countStop')),
                 ('stamp', c.get('S7.stamp')), ('metal', c.get('S8.keys'))]
     sfx_plan = [(k, t) for k, t in sfx_plan if t is not None][:cfg['sfx']['maxCount']]
 
@@ -718,12 +748,20 @@ def main():
             w[k1:] = 0
             m = min(len(pb), len(bed))
             bed[:m] = bed[:m] * (1 - w[:m, None]) + pb[:m] * w[:m, None]
+        if auto and auto['plotTwist'].get('tapeStop'):
+            bed = tape_stop(bed, starts['S6'], auto['plotTwist']['tapeStop'])
+            man['stats']['tapeStop'] = f"S6 {starts['S6']} sn: müzik {auto['plotTwist']['tapeStop']} sn'de durdu (kodla), ardından {auto['plotTwist']['silence']} sn sessizlik"
         env, merged = music_envelope(len(bed), man['speech'] or [(w['start'], w['end']) for w in words],
                                      bounds, levels, cfg['music'], total, auto, starts, fps)
         music = bed * env[:, None]
         mix[:len(music)] += music
         music_gain = env
         man['music'] = str(music_src.relative_to(PUBLIC))
+        if d.get('musicCredit'):
+            cf = PUBLIC / 'broll/credits.json'
+            cr = json.loads(cf.read_text()) if cf.exists() else {'clips': []}
+            cr['music'] = [m for m in cr.get('music', []) if m.get('file') != d['musicCredit']['file']] + [{**d['musicCredit'], 'usedAs': d['musicFile']}]
+            cf.write_text(json.dumps(cr, ensure_ascii=False, indent=2) + '\n')
         man['stats']['musicLooped'] = looped
         write_wav(GEN / 'f35_music_bed.wav', music)
     # SFX: müzik seviyesinin altında (RMS, 3 dB); müzik yoksa konuşmanın 14 dB altında

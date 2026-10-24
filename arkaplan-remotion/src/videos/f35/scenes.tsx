@@ -9,6 +9,7 @@ import {RegionMap} from '../../brand/RegionMap';
 import {NEUTRAL_LINE, SplitCard} from '../../brand/SplitCard';
 import {SourceLine} from '../../brand/Captions';
 import {CalendarFlip} from '../../brand/CalendarFlip';
+import {Flag} from '../../brand/Flags';
 import {GridBackground, ProgressSteps, Stamp, TRACK_BG, TrackKicker, TrackingCard} from '../../brand/Tracking';
 import {COLORS, CONTENT, FONTS, STATUS} from '../../brand/tokens';
 import {keepHyphens} from '../../brand/ui';
@@ -290,6 +291,8 @@ const ABU_DHABI: [number, number] = [54.37, 24.45];
 const DOHA: [number, number] = [51.53, 25.29];
 const MOSCOW: [number, number] = [37.62, 55.75];
 const ROUTE_MID: [number, number] = [42.5, 32.0];
+/** Rota renkleri: iki varış noktası ayrı renkte (BAE sarı, Katar açık mavi) */
+const ROUTE_COLORS = {uae: STATUS.wait, qatar: '#8FA8FF'};
 
 const PressCard: React.FC<{text: string; startFrame: number; until?: number}> = ({text, startFrame, until}) => {
   const m = useCardMotion(startFrame, until);
@@ -318,21 +321,21 @@ export const S7: React.FC = () => {
           width={CONTENT.width}
           height={560}
           bounds={[
-            [27, 21],
+            [27, 17.5],
             [58, 57],
           ]}
           outline={['792', '784', '634']}
           pushFrames={duration}
           arrows={[
-            {from: ANKARA, to: ABU_DHABI, frame: routes + 4, endLabel: '?', bend: -0.12, labelOffset: [18, -70]},
-            {from: ANKARA, to: DOHA, frame: routes + 10, endLabel: '?', bend: 0.2, labelOffset: [-74, -70]},
+            {from: ANKARA, to: ABU_DHABI, frame: routes + 4, endLabel: '?', bend: -0.12, labelOffset: [18, -70], color: ROUTE_COLORS.uae},
+            {from: ANKARA, to: DOHA, frame: routes + 10, endLabel: '?', bend: 0.2, labelOffset: [-74, -70], color: ROUTE_COLORS.qatar},
           ]}
           links={[{from: MOSCOW, to: ROUTE_MID, frame: stamp - 10}]}
           labels={[
-            {at: ANKARA, text: labels.turkey, frame: 2, dx: -170, dy: 20, strong: true, dot: true},
-            {at: ABU_DHABI, text: labels.uae, frame: routes + 20, dx: 16, dy: 8, strong: true, dot: true},
-            {at: DOHA, text: labels.qatar, frame: routes + 24, dx: -136, dy: 6, strong: true, dot: true},
-            {at: MOSCOW, text: labels.moscow, frame: 2, dx: 16, dy: -16, strong: true, dot: true},
+            {at: ANKARA, text: labels.turkey, frame: 2, dx: -228, dy: 18, strong: true, dot: true, badge: <Flag code="TR" height={24} />},
+            {at: ABU_DHABI, text: labels.uae, frame: routes + 20, dx: 18, dy: -2, strong: true, dot: true, badge: <Flag code="AE" height={24} />},
+            {at: DOHA, text: labels.qatar, frame: routes + 24, dx: -214, dy: 6, strong: true, dot: true, badge: <Flag code="QA" height={22} />},
+            {at: MOSCOW, text: labels.moscow, frame: 2, dx: 16, dy: -18, strong: true, dot: true, badge: <Flag code="RU" height={22} />},
           ]}
           markers={[{at: [39.5, 44.5], frame: stamp, dx: 10, dy: -30, node: <Stamp text={TEXT.stamps.approval} tone="wait" at={stamp} rotate={-4} size={34} />}]}
         />
@@ -355,14 +358,12 @@ export const S8: React.FC = () => {
   const f = useCurrentFrame();
   const {duration} = sceneFrames('S8');
   const keys = cueLocal('S8', 'keys');
-  const outro = duration - 60;
-  const lines = Math.min(keys + 45, outro - 75);
-  const fadeMain = interpolate(f, [outro - 8, outro], [1, 0], clamp);
+  const lines = Math.min(keys + 15, duration - 40);
   const w = (CONTENT.width - 24) / 2;
   const {left, right} = TEXT.s6;
   return (
     <Screen>
-      <div style={{opacity: fadeMain}}>
+      <div>
         <TrackKicker>{TEXT.s8.kicker}</TrackKicker>
         <div style={{position: 'absolute', left: CONTENT.left, top: 340, display: 'flex', gap: 24}}>
           {[left, right].map((p) => (
@@ -388,11 +389,6 @@ export const S8: React.FC = () => {
         </Fade>
         <SourceLine text={src('S8')} />
       </div>
-      <Fade at={outro} dy={20} style={{position: 'absolute', left: CONTENT.left, top: 560, width: CONTENT.width, textAlign: 'center'}}>
-        <div style={{fontFamily: FONTS.serif, fontStyle: 'italic', fontWeight: 500, fontSize: 64, lineHeight: 1.1, color: COLORS.cream}}>{TEXT.quote.text}</div>
-        <div style={{fontFamily: FONTS.mono, fontWeight: 500, fontSize: 24, letterSpacing: 2, color: COLORS.dimDark, marginTop: 18}}>{TEXT.quote.author}</div>
-        <div style={{fontFamily: FONTS.sans, fontWeight: 800, fontSize: 74, lineHeight: 1.05, letterSpacing: '-0.02em', color: COLORS.cream, marginTop: 90}}>{TEXT.s8.question}</div>
-      </Fade>
     </Screen>
   );
 };

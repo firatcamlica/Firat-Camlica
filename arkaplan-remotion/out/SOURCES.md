@@ -82,7 +82,6 @@ Ekrandaki iddialar:
 - Bu arada: Suudi Arabistan'a 48 F-35 onayı · Eyl 2026
 - Marco Rubio · ABD Dışişleri Bakanı · 7 Eki 2026: S-400 çözülmeden yasal olarak mümkün değil.
 - anahtarlar: WASHINGTON · MOSKOVA
-- Sence önce hangi kilit açılır?
 
 Kaynak: Turkish Minute, 18 Eyl 2026 · Euronews, 8 Eki 2026
 

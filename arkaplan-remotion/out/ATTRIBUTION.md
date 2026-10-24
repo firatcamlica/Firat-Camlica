@@ -14,8 +14,8 @@ Kullanılmadı (PEXELS_API_KEY / PIXABAY_API_KEY yok ya da uygun klip bulunamad�
 ## Ses
 
 - Seslendirme: `public/voiceover_f35.mp3` (kullanıldı), ElevenLabs ile üretildi (ses: Derya), kanalın kaydı.
-- Müzik: `public/music_f35.mp3` (bu render'da YOK). Lisans bilgisini buraya ekleyin.
-- SFX: type (0 sn, sentez (tools/f35/prep_audio.py)), stamp (5.886 sn, sentez (tools/f35/prep_audio.py)), paper (15.047 sn, sentez (tools/f35/prep_audio.py)), stamp (17.486 sn, sentez (tools/f35/prep_audio.py)), stamp (26.362 sn, sentez (tools/f35/prep_audio.py)), tape (30.299 sn, sentez (tools/f35/prep_audio.py)), stamp (40.971 sn, sentez (tools/f35/prep_audio.py)), metal (45.2 sn, sentez (tools/f35/prep_audio.py)).
+- Müzik: "Documentary" · tatamusic · Pixabay (id 595125) · https://pixabay.com/users/tatamusic/ · [Pixabay Content License](https://pixabay.com/service/license-summary/) · indirme 2026-10-24. Dosya: `tatamusic-documentary-documentary-music-595125.mp3` → `public/music_f35.mp3`; videonun süresine kırpıldı, S6'da kodla tape stop + 1,2 sn sessizlik, kapanışta 1,5 sn fade out. Not: Parça sayfasının tam adresi Pixabay'de 595125 numarasıyla doğrulanmalı.
+- SFX: type (0 sn, sentez (tools/f35/prep_audio.py)), stamp (5.886 sn, sentez (tools/f35/prep_audio.py)), paper (15.047 sn, sentez (tools/f35/prep_audio.py)), stamp (17.486 sn, sentez (tools/f35/prep_audio.py)), stamp (26.362 sn, sentez (tools/f35/prep_audio.py)), whoosh (3.429 sn, sentez (tools/f35/prep_audio.py)), stamp (40.971 sn, sentez (tools/f35/prep_audio.py)), metal (45.2 sn, sentez (tools/f35/prep_audio.py)).
 
 ## Yazı tipi, harita, model
 
