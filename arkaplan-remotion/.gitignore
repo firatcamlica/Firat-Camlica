@@ -1,0 +1,6 @@
+node_modules/
+out/*
+!out/carousel/
+.cache/
+out/carousel/*/_eski/
+out/carousel/*/_kontrol/
