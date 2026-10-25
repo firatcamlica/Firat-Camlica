@@ -31,14 +31,16 @@ export const CarouselFrame: React.FC<{
   photo?: PhotoCredit;
   photoOpacity?: number;
   photoTop?: number;
+  /** Tema zeminini değiştirir (ör. lacivert koyu kare) */
+  bg?: string;
   children: React.ReactNode;
-}> = ({theme, index, total, photo, photoOpacity = 1, photoTop, children}) => {
+}> = ({theme, index, total, photo, photoOpacity = 1, photoTop, bg, children}) => {
   const qa = useQa();
   const th = THEMES[theme];
   const onDark = theme === 'dark' || Boolean(photo);
   return (
     <ThemeCtx.Provider value={th}>
-      <AbsoluteFill style={{background: qa ? 'transparent' : th.bg}}>
+      <AbsoluteFill style={{background: qa ? 'transparent' : (bg ?? th.bg)}}>
         {photo && <DuotonePhoto photo={photo} opacity={photoOpacity} top={photoTop} />}
         {children}
         {!qa && (

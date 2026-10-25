@@ -90,7 +90,7 @@ export const EndSlide: React.FC<{headline: string; sources: string[]; photoLine:
           </div>
         ))}
       </div>
-      <div style={{marginTop: 26, fontFamily: MONO, fontWeight: 500, fontSize: 22, whiteSpace: 'nowrap', color: th.fgDim}}>{photoLine}</div>
+      {photoLine ? <div style={{marginTop: 26, fontFamily: MONO, fontWeight: 500, fontSize: 22, whiteSpace: 'nowrap', color: th.fgDim}}>{photoLine}</div> : null}
       <div style={{flex: 1}} />
       <div style={{display: 'flex', alignItems: 'center', gap: 24, background: COLORS.blue, borderRadius: 24, padding: '28px 32px'}}>
         <Logo size={88} onDark />

@@ -30,3 +30,18 @@ Aktarılacaklar:
 
 `Headline` bileşeni metni küçük harfe çevirir (Mac'teki kareler böyle); üst etiketler data dosyasında büyük harfle yazılır.
 Fotoğraf plakaları (`public/photos`) videodan çıkarıldı; Mac'te asıl dosyalar ve `credits.json` kullanılır.
+
+## Azerbaycan carousel (11 kare)
+
+"Tek millet, iki devlet" videosunun (`azerbaycan_basortusu.mp4`) kareleri + 25 Eki 2026 gelişmesi (Oktay Saral'ın görevden ayrılışı, 09. kare).
+Metinler `src/data/azerbaycan.carousel.ts`, kareler `src/videos/carousel/AzerbaycanCarousel.tsx`, uçuş kartı ve zaman çizelgesi `azGraphics.tsx`.
+
+```bash
+node tools/carousel.mjs azerbaycan && python3 tools/onizleme.py azerbaycan
+node tools/tarafsizlik.mjs azerbaycan
+node tools/carousel.mjs azerbaycan --qa && python3 tools/kirpma.py azerbaycan
+```
+
+Videoda "doğrulanacak" kalan iki bilgi carousel'de kaynaklandı: hava sahası kuralı ve Herzog uçuşu (Middle East Eye, Flightradar24),
+37 gözaltı (Azerbaycan İçişleri Bakanlığı, Medyascope). Saral'ın açıklama tarihi kaynaklarda 12 ve 13 Eki; 13 Eki (Serbestiyet) kullanıldı.
+`CarouselFrame` yeni `bg` alanı alır (lacivert koyu kareler); `EndSlide` boş `photoLine` ile fotoğraf satırını gizler.

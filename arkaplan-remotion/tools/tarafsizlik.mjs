@@ -9,7 +9,9 @@ const name = process.argv[2] ?? 'fransa';
 const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
 // Video verisi (carousel'in kullandığı alt küme) + carousel metinleri
 const body = ['', '.carousel']
-  .map((x) => fs.readFileSync(path.join(root, 'src/data', `${name}${x}.ts`), 'utf8'))
+  .map((x) => path.join(root, 'src/data', `${name}${x}.ts`))
+  .filter((f) => fs.existsSync(f))
+  .map((f) => fs.readFileSync(f, 'utf8'))
   .join('\n');
 
 // engel: yazı dilinde kullanılmaz. dikkat: bağlama göre kabul edilebilir, raporda gösterilir.
